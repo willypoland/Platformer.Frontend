@@ -15,6 +15,7 @@ namespace Game
         [SerializeField] private ShapeMock _shapePrefab;
         [SerializeField] private Transform _sceneRoot;
         [SerializeField] private InitializeFieldView _initializeFieldView;
+        [SerializeField] private InputMapView _inputMapView;
 
         private PlatformerCore _platformer;
         private bool _connected = false;
@@ -44,6 +45,7 @@ namespace Game
             if (_connected)
             {
                 InputMap input = HandleInput();
+                _inputMapView.Set(input);
                 _platformer.UpdateTick(input);
                 if (_platformer.GameState != null)
                     UpdateScene(_platformer.GameState);

@@ -14,10 +14,11 @@ namespace Api
 {
     internal static unsafe class Api
     {
-        private const string DllName = "frontend_ggpo.dll";
-
-        [DllImport(DllName)]
-        private static extern void RegisterPeer(int localPort, bool isMaster, sbyte* remoteHost, int remotePort);
+        //private const string DllName = "frontend_ggpo.dll";
+        private const string DllName = "frontend_async.dll";
+        
+        // [DllImport(DllName)]
+        // private static extern void RegisterPeer(int localPort, bool isMaster, sbyte* remoteHost, int remotePort);
 
         [DllImport(DllName)]
         public static extern void StartGame();
@@ -33,11 +34,12 @@ namespace Api
 
         public static void RegisterPeer(int localPort, bool isMaster, string remoteHost, int remotePort)
         {
-            byte[] bytes = System.Text.Encoding.ASCII.GetBytes(remoteHost);
-            fixed (byte* cstr = bytes)
-            {
-                RegisterPeer(localPort, isMaster, (sbyte*)cstr, remotePort);
-            }
+            
+            // byte[] bytes = System.Text.Encoding.ASCII.GetBytes(remoteHost);
+            // fixed (byte* cstr = bytes)
+            // {
+            //     RegisterPeer(localPort, isMaster, (sbyte*)cstr, remotePort);
+            // }
         }
         
         public static int GetState(byte[] buffer)

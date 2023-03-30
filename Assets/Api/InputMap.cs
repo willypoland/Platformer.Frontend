@@ -2,6 +2,10 @@
 {
     public struct InputMap
     {
-        public bool LeftPressed, RightPressed, UpPressed, DownPressed, LeftMouseClicked;
+        public bool LeftPressed;
+        public bool RightPressed;
+        public bool UpPressed;
+        public bool DownPressed;
+        public bool LeftMouseClicked;
     }
 }
