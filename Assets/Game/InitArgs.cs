@@ -3,11 +3,11 @@
 
 namespace Game
 {
-    public struct StartArgs
+    public struct InitArgs
     {
         public bool IsLocal;
         public ushort LocalPort;
-        public IPAddress Ip;
+        public string Ip;
         public ushort RemotePort;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Api
 {
-    public struct Input
+    public struct InputMap
     {
         public bool LeftPressed, RightPressed, UpPressed, DownPressed, LeftMouseClicked;
     }

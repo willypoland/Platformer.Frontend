@@ -9,7 +9,7 @@ namespace Api
         public const int MaxBufferSize = 512;
         
         private readonly byte[] _buffer = new byte[MaxBufferSize];
-        private readonly Ser.GameState _gs = new();
+        private Ser.GameState _gs;
 
         public Ser.GameState GameState => _gs;
         
@@ -29,7 +29,7 @@ namespace Api
         {
             Api.Update(inputMap);
             int length = Api.GetState(_buffer);
-            _gs.MergeFrom(_buffer, 0, length);
+            _gs = Ser.GameState.Parser.ParseFrom(_buffer, 0, length);
         }
     }
 }
