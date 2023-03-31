@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Api;
 using Common.Pool;
 using Ser;
+using TMPro;
 using UnityEngine;
 
 
@@ -35,7 +37,6 @@ namespace Game
 
         private void OnDestroy()
         {
-            Debug.Log("Stop game");
             _platformer.StopGame();
             _connected = false;
         }
@@ -46,6 +47,7 @@ namespace Game
             {
                 InputMap input = HandleInput();
                 _inputMapView.Set(input);
+                
                 _platformer.UpdateTick(input);
                 if (_platformer.GameState != null)
                     UpdateScene(_platformer.GameState);
@@ -85,22 +87,21 @@ namespace Game
 
         private void Connect(InitArgs args)
         {
+            if (_connected)
+                _platformer.StopGame();
             _platformer.StartGame(args.LocalPort, args.IsLocal, args.Ip, args.RemotePort);
             _connected = true;
         }
         
         private InputMap HandleInput()
         {
-            var horizontal = Input.GetAxis("Horizontal");
-            var vertical = Input.GetAxis("Vertical");
-            
             InputMap input = new InputMap
             {
-                LeftPressed = horizontal < 0,
-                RightPressed = horizontal > 0,
-                UpPressed = vertical > 0,
-                DownPressed = vertical < 0,
-                LeftMouseClicked = Input.GetAxis("Fire1") > 0,
+                LeftPressed = Input.GetKey(KeyCode.A),
+                RightPressed = Input.GetKey(KeyCode.D),
+                UpPressed = Input.GetKey(KeyCode.W),
+                DownPressed = Input.GetKey(KeyCode.S),
+                LeftMouseClicked = Input.GetMouseButton(0),
             };
             return input;
         }

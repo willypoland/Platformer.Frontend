@@ -1,11 +1,14 @@
-﻿namespace Api
+﻿using System.Runtime.InteropServices;
+
+
+namespace Api
 {
     public struct InputMap
     {
-        public bool LeftPressed;
-        public bool RightPressed;
-        public bool UpPressed;
-        public bool DownPressed;
-        public bool LeftMouseClicked;
+        [MarshalAs(UnmanagedType.U1)] public bool LeftPressed;
+        [MarshalAs(UnmanagedType.U1)] public bool RightPressed;
+        [MarshalAs(UnmanagedType.U1)] public bool UpPressed;
+        [MarshalAs(UnmanagedType.U1)] public bool DownPressed;
+        [MarshalAs(UnmanagedType.U1)] public bool LeftMouseClicked;
     }
 }

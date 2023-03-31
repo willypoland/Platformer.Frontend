@@ -1,5 +1,6 @@
 ﻿using System;
 using Google.Protobuf;
+using UnityEngine;
 
 
 namespace Api
@@ -18,10 +19,13 @@ namespace Api
             Array.Clear(_buffer, 0, _buffer.Length);
             Api.RegisterPeer(localPort, isLocal, ip, remotePort);
             Api.StartGame();
+            Debug.Log("Start game");
+            
         }
 
         public void StopGame()
         {
+            Debug.Log("Stop game");
             Api.StopGame();
         }
 
