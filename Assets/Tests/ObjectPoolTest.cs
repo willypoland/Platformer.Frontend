@@ -1,4 +1,4 @@
-using Common.Pool;
+using Roz.Common.Pool;
 using NUnit.Framework;
 
 
@@ -71,7 +71,7 @@ public class ObjectPoolTest
 
         public override string ToString() => Disposed ? "(DISPOSED)" : $"({Id}:{Enabled})";
 
-        public class Factory : IPoolObjectFactory<TestObject>
+        public class Factory : IObjectPoolFactory<TestObject>
         {
             private int GlobalId;
 

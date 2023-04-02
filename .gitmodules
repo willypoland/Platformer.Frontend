@@ -1,0 +1,3 @@
+[submodule "Assets/Plugins/Roz.Common"]
+	path = Assets/Plugins/Roz.Common
+	url = git@github.com:willypoland/Roz.Common.git

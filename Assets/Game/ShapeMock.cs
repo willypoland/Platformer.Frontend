@@ -1,5 +1,5 @@
 ﻿using System;
-using Common.Pool;
+using Roz.Common.Pool;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,7 +37,7 @@ namespace Game
             set => _image.color = value;
         }
 
-        public class Factory : IPoolObjectFactory<ShapeMock>
+        public class Factory : IObjectPoolFactory<ShapeMock>
         {
             public ShapeMock Source;
             public Transform Root;
