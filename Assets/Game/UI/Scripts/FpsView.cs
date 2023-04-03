@@ -9,6 +9,6 @@ public class FpsView : MonoBehaviour
     [SerializeField] private Text _text;
     void Update()
     {
-        _text.text = (1f / Time.deltaTime).ToString();
+        _text.text = (1f / Time.smoothDeltaTime).ToString("F1");
     }
 }

@@ -18,6 +18,7 @@ namespace Game
         [SerializeField] private Transform _sceneRoot;
         [SerializeField] private InitializeFieldView _initializeFieldView;
         [SerializeField] private InputMapView _inputMapView;
+        [SerializeField] private PlayerView[] _playerViews;
 
         private PlatformerCore _platformer;
         private bool _connected = false;
@@ -56,13 +57,15 @@ namespace Game
 
         private void UpdateScene(GameState gs)
         {
-            var cam = Camera.main; 
             _shapes.ReleaseAll();
 
-            foreach (var player in gs.Players)
+            for (int i = 0; i < gs.Players.Count; i++)
             {
+                var playerData = gs.Players[i];
                 var shape = GetShape(_playerColor);
-                shape.Set(player.Obj.Position.X, player.Obj.Position.Y, player.Obj.Width, player.Obj.Height);
+                var obj = playerData.Obj;
+                shape.Set(obj.Position.X, obj.Position.Y, obj.Width, obj.Height);
+                _playerViews[i].Set(playerData, shape);
             }
 
             foreach (var attack in gs.MeleeAttacks)
