@@ -23,6 +23,7 @@ namespace Game.Tests
         {
             //_states.AddIdle(37).AddAnimState(AnimState.Attack, 30).AddRun(100);
             _states.AddAnimState(AnimState.Attack, 30).AddAnimState(AnimState.Idle, 1);
+            _enumerator = _states.GetEnumerator();
             _enumerator = _states.GetEnumerator(new Random(512789461), 0.1f, 3, 20);
         }
 
@@ -30,12 +31,7 @@ namespace Game.Tests
         {
             _enumerator.MoveNext();
             var state = _enumerator.Current; 
-            if (state.StateFrame == 0 || state.TotalFrame < _prevFrame)
-            {
-                Debug.Log($"Change: {state.StateFrame}");
-                PlayAnimation(state, state.StateFrame);
-            }
-
+            PlayAnimation(state, state.StateFrame);
             _prevFrame = state.TotalFrame;
         }
 
@@ -47,7 +43,7 @@ namespace Game.Tests
                 _animator.Play(_idleClip, startFrame);
                 break;
             case AnimState.Attack:
-                _animator.Play(_attackClip, startFrame);
+                _animator.Play(_attackClip, (int)Map(startFrame, 0, 29, 0, _attackClip.Count - 1));
                 break;
             case AnimState.Run:
                 _animator.Play(_runClip, startFrame);
@@ -55,6 +51,12 @@ namespace Game.Tests
             default:
                 throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private static float Map(float value, float inputMin, float inputMax, float outputMin, float outputMax)
+        {
+            float t = Mathf.InverseLerp(inputMin, inputMax, value);
+            return Mathf.Lerp(outputMin, outputMax, t);
         }
     }
 }

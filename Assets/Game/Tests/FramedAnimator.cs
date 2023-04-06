@@ -23,12 +23,12 @@ namespace Game.Tests
         }
 
         public bool Playing => _playing;
-        public int CurrentIndex => _spriteIndex;
+        public int SpriteIndex => _spriteIndex;
         public float CurrentTime => _time;
         public float CurrentFrameTimeOffset => _playing ? _time % _timePerSprite : 0f;
         public float TimePerSprite => _timePerSprite;
         
-        public void Play(FramedAnimationClip clip, int startFrame = 0, float frameTimeOffset = 0)
+        public void RePlay(FramedAnimationClip clip, int startFrame = 0, float frameTimeOffset = 0)
         {
             _playing = true;
             _activeClip = clip;
@@ -36,6 +36,20 @@ namespace Game.Tests
             _spriteIndex = startFrame;
             _time = startFrame * _timePerSprite + frameTimeOffset;
             _spriteIndex = GetSpriteIndex();
+        }
+
+        public void Play(FramedAnimationClip clip, int frame)
+        {
+            if (!_playing || !ReferenceEquals(_activeClip, clip))
+            {
+                Debug.Log("Full replay");
+                RePlay(clip, frame, 0);
+            }
+            else if (GetSpriteIndex() != frame)
+            {
+                Debug.Log("Change ");
+                RePlay(clip, frame, CurrentFrameTimeOffset);
+            }
         }
 
         public void Stop()
