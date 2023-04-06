@@ -15,7 +15,7 @@ public class PlayerView : MonoBehaviour
         transform.localPosition = shape.transform.localPosition;
 
         _renderer.flipX = data.LeftDirection;
-
+        
         if (data.StateFrame == 0)
         {
             PlayAnimation(data.State);
