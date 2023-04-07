@@ -4,6 +4,7 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
+        "Platformer.Game",
         "Roz.Common"
     ],
     "includePlatforms": [

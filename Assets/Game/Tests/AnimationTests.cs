@@ -10,29 +10,34 @@ namespace Game.Tests
     class AnimationTests : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _renderer;
-        [SerializeField] private FramedAnimator _animator;
-        [SerializeField] private FramedAnimationClip _attackClip;
-        [SerializeField] private FramedAnimationClip _idleClip;
-        [SerializeField] private FramedAnimationClip _runClip;
+        [SerializeField] private FixedAnimation _attackClip;
+        [SerializeField] private FixedAnimation _idleClip;
+        [SerializeField] private FixedAnimation _runClip;
 
+        [SerializeField] private AnimState _state;
+        [SerializeField] private int _currentFrame;
+        [SerializeField] private int _totalFrame;
+        
         private StatesStream _states = new();
         private IEnumerator<AnimFrame> _enumerator;
-        private int _prevFrame;
 
         private void Start()
         {
-            //_states.AddIdle(37).AddAnimState(AnimState.Attack, 30).AddRun(100);
-            _states.AddAnimState(AnimState.Attack, 30).AddAnimState(AnimState.Idle, 1);
-            _enumerator = _states.GetEnumerator();
-            _enumerator = _states.GetEnumerator(new Random(512789461), 0.1f, 3, 20);
+            _states.AddIdle(60).AddAnimState(AnimState.Attack, 30).AddRun(120);
+            //_states.AddAnimState(AnimState.Attack, 30).AddAnimState(AnimState.Idle, 1);
+            //_enumerator = _states.GetEnumerator();
+            _enumerator = _states.GetEnumerator(new Random(512789461), 0.02f, -20, 20);
         }
 
         private void Update()
         {
             _enumerator.MoveNext();
-            var state = _enumerator.Current; 
+            var state = _enumerator.Current;
+            _state = state.State;
+            _currentFrame = state.StateFrame;
+            _totalFrame = state.TotalFrame;
+            
             PlayAnimation(state, state.StateFrame);
-            _prevFrame = state.TotalFrame;
         }
 
         private void PlayAnimation(AnimFrame state, int startFrame)
@@ -40,23 +45,22 @@ namespace Game.Tests
             switch (state.State)
             {
             case AnimState.Idle:
-                _animator.Play(_idleClip, startFrame);
+                Play(_idleClip, startFrame);
                 break;
             case AnimState.Attack:
-                _animator.Play(_attackClip, (int)Map(startFrame, 0, 29, 0, _attackClip.Count - 1));
+                Play(_attackClip, startFrame);
                 break;
             case AnimState.Run:
-                _animator.Play(_runClip, startFrame);
+                Play(_runClip, startFrame);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
             }
         }
 
-        private static float Map(float value, float inputMin, float inputMax, float outputMin, float outputMax)
+        private void Play(FixedAnimation clip, int frame)
         {
-            float t = Mathf.InverseLerp(inputMin, inputMax, value);
-            return Mathf.Lerp(outputMin, outputMax, t);
+            _renderer.sprite = clip.Get(frame);
         }
     }
 }
