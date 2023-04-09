@@ -23,5 +23,5 @@ MonoBehaviour:
   - {fileID: 21300030, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
   - {fileID: 21300032, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
   - {fileID: 21300034, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
-  _timeInFrames: 0
+  _timeInFrames: 60
   _repeate: 1

@@ -44,7 +44,7 @@ namespace Game
 
         private void Update()
         {
-            if (_connected)
+            if (_connected )
             {
                 InputMap input = HandleInput();
                 _inputMapView.Set(input);

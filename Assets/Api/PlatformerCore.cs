@@ -31,9 +31,12 @@ namespace Api
 
         public void UpdateTick(InputMap inputMap)
         {
-            Api.Update(inputMap);
-            int length = Api.GetState(_buffer);
-            _gs = Ser.GameState.Parser.ParseFrom(_buffer, 0, length);
+            if (Api.GetStatus() == GameStatus.RUN)
+            {
+                Api.Update(inputMap);
+                int length = Api.GetState(_buffer);
+                _gs = Ser.GameState.Parser.ParseFrom(_buffer, 0, length);
+            }
         }
     }
 }

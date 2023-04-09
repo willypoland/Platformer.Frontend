@@ -21,6 +21,9 @@ namespace Api
         // private static extern void RegisterPeer(int localPort, bool isMaster, sbyte* remoteHost, int remotePort);
 
         [DllImport(DllName, SetLastError = true)]
+        public static extern GameStatus GetStatus();
+
+        [DllImport(DllName, SetLastError = true)]
         public static extern void StartGame();
         
         [DllImport(DllName, SetLastError = true)]
