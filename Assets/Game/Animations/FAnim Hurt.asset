@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 863661461a064dcd861be21e74f34268, type: 3}
+  m_Name: FAnim Hurt
+  m_EditorClassIdentifier: 
+  _sprites:
+  - {fileID: 21300090, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  - {fileID: 21300092, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  - {fileID: 21300094, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  _timeInFrames: 1
+  _repeate: 1

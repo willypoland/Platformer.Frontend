@@ -1,7 +1,5 @@
-﻿using System;
-using CsUtility.Pool;
+﻿using CsUtility.Pool;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 namespace Game

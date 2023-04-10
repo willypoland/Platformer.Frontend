@@ -29,14 +29,17 @@ namespace Api
             Api.StopGame();
         }
 
-        public void UpdateTick(InputMap inputMap)
+        public GameStatus UpdateTick(InputMap inputMap)
         {
-            if (Api.GetStatus() == GameStatus.RUN)
+            var status = Api.GetStatus(); 
+            if (status == GameStatus.RUN)
             {
                 Api.Update(inputMap);
                 int length = Api.GetState(_buffer);
                 _gs = Ser.GameState.Parser.ParseFrom(_buffer, 0, length);
             }
+
+            return status;
         }
     }
 }

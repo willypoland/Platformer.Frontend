@@ -26,7 +26,11 @@ namespace Game
 
         public Sprite Get(int frame) => _sprites[MapIndex(frame)];
 
-        public int MapIndex(int frame) => Mathf.FloorToInt((frame % _timeInFrames) * _inputStep * _sprites.Length);
+        public int MapIndex(int frame)
+        {
+            frame = _repeate ? frame % _timeInFrames : Mathf.Min(frame, _timeInFrames - 1);
+            return Mathf.FloorToInt(frame * _inputStep * _sprites.Length);
+        }
 
 #if UNITY_EDITOR
         public static FixedAnimation Mock(int sprites, int timeInFrames, bool repeate)

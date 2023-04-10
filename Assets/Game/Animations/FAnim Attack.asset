@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 863661461a064dcd861be21e74f34268, type: 3}
-  m_Name: Fixed Animation Attack
+  m_Name: FAnim Attack
   m_EditorClassIdentifier: 
   _sprites:
   - {fileID: 21300060, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
@@ -21,5 +21,5 @@ MonoBehaviour:
   - {fileID: 21300070, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
   - {fileID: 21300072, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
   - {fileID: 21300074, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
-  _timeInFrames: 30
+  _timeInFrames: 6
   _repeate: 0

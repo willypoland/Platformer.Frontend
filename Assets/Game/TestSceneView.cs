@@ -5,10 +5,12 @@ using CsUtility.Pool;
 using Ser;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace Game
 {
+
     public class TestSceneView : MonoBehaviour
     {
         [SerializeField] private Color _playerColor = Color.white;
@@ -16,15 +18,20 @@ namespace Game
         [SerializeField] private Color _platformColor = Color.yellow;
         [SerializeField] private ShapeMock _shapePrefab;
         [SerializeField] private Transform _sceneRoot;
+        [Header("Views")]
         [SerializeField] private InitializeFieldView _initializeFieldView;
         [SerializeField] private InputMapView _inputMapView;
+        [SerializeField] private StatusView _statusView;
         [SerializeField] private PlayerView[] _playerViews;
+        [SerializeField] private Text _frameText;
 
         private PlatformerCore _platformer;
         private bool _connected = false;
 
         private ShapeMock.Factory _shapeFactroy;
         private ObjectPool<ShapeMock> _shapes;
+
+        private bool _wasRollback = true;
 
         private void Start()
         {
@@ -48,11 +55,32 @@ namespace Game
             {
                 InputMap input = HandleInput();
                 _inputMapView.Set(input);
+
+                var prevFrame = _platformer.GameState?.Frame ?? 0;
+                var status = _platformer.UpdateTick(input);
+                var currFrame = _platformer.GameState?.Frame ?? 0;
+                _wasRollback = (currFrame - prevFrame) != 1;
+
+                _frameText.text = currFrame.ToString();
+
+                //Debug.Log($"{prevFrame} -> {currFrame}");
                 
-                _platformer.UpdateTick(input);
+                _statusView.SetStatus(Map(status));
+
                 if (_platformer.GameState != null)
                     UpdateScene(_platformer.GameState);
             }
+        }
+
+        private StatusView.Status Map(GameStatus status)
+        {
+            return status switch
+            {
+                GameStatus.RUN => StatusView.Status.Run,
+                GameStatus.SYNC => StatusView.Status.Sync,
+                GameStatus.STOPED => StatusView.Status.Stopped,
+                _ => throw new ArgumentOutOfRangeException(nameof(status), status, null),
+            };
         }
 
         private void UpdateScene(GameState gs)
@@ -65,7 +93,7 @@ namespace Game
                 var shape = GetShape(_playerColor);
                 var obj = playerData.Obj;
                 shape.Set(obj.Position.X, obj.Position.Y, obj.Width, obj.Height);
-                _playerViews[i].Set(playerData, shape);
+                _playerViews[i].Set(playerData, shape, _wasRollback);
             }
 
             foreach (var attack in gs.MeleeAttacks)

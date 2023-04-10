@@ -6,7 +6,6 @@ using Api;
 using Game;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 
@@ -24,7 +23,7 @@ public class InitializeFieldView : MonoBehaviour
     private ushort? _remotePort;
     private string _ip;
 
-    public event Action<InitArgs> Connect; 
+    public event Action<InitArgs> Connect;
 
     private void Start()
     {
