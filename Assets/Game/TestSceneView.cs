@@ -31,15 +31,20 @@ namespace Game
         private ShapeMock.Factory _shapeFactroy;
         private ObjectPool<ShapeMock> _shapes;
 
-        private bool _wasRollback = true;
+        private int _prevFrame;
 
         private void Start()
         {
             _shapeFactroy = new ShapeMock.Factory(_sceneRoot, _shapePrefab);
             _shapes = new ObjectPool<ShapeMock>(_shapeFactroy);
             _shapes.PrepareInstances(10);
-            
-            _platformer = new PlatformerCore();
+
+#if !UNITY_EDITOR
+            if (Environment.GetCommandLineArgs().Length > 1)
+                _platformer = PlatformerCore.CreateGGPO();
+#else
+            _platformer = PlatformerCore.CreateAsync();
+#endif
             _initializeFieldView.Connect += Connect;
         }
 
@@ -51,7 +56,7 @@ namespace Game
 
         private void Update()
         {
-            if (_connected )
+            if (_connected)
             {
                 InputMap input = HandleInput();
                 _inputMapView.Set(input);
@@ -59,15 +64,13 @@ namespace Game
                 var prevFrame = _platformer.GameState?.Frame ?? 0;
                 var status = _platformer.UpdateTick(input);
                 var currFrame = _platformer.GameState?.Frame ?? 0;
-                _wasRollback = (currFrame - prevFrame) != 1;
-
+                var sameFrame = currFrame == prevFrame;
+                
                 _frameText.text = currFrame.ToString();
 
-                //Debug.Log($"{prevFrame} -> {currFrame}");
-                
                 _statusView.SetStatus(Map(status));
 
-                if (_platformer.GameState != null)
+                if (_platformer.GameState != null && !sameFrame)
                     UpdateScene(_platformer.GameState);
             }
         }
@@ -93,7 +96,7 @@ namespace Game
                 var shape = GetShape(_playerColor);
                 var obj = playerData.Obj;
                 shape.Set(obj.Position.X, obj.Position.Y, obj.Width, obj.Height);
-                _playerViews[i].Set(playerData, shape, _wasRollback);
+                _playerViews[i].Set(playerData, shape);
             }
 
             foreach (var attack in gs.MeleeAttacks)

@@ -12,63 +12,36 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private GameObject _interpolactionIndicator;
     [SerializeField] private PlayerStateView _stateView;
 
-    private int _prevFrame;
     private Ser.PlayerState _prevState;
     private bool _wasRollback;
-    private Vector3 _prevPosition = new Vector3(float.NegativeInfinity, 0, 0);
+    private Vector3 _curPosition;
+    private Vector3 _lastPosition;
 
-    public void Set(Ser.Player data, ShapeMock shape, bool wasRollback)
+    public void Set(Ser.Player data, ShapeMock shape)
     {
-        var newPos = shape.transform.localPosition;
-        wasRollback = IsWasRollback(data);
-        newPos = InterpolateAfterRollback(wasRollback, newPos);
-        
-        if (wasRollback)
-            Debug.Log("was rollback");
-        
-        transform.localPosition = newPos;
+        _lastPosition = _curPosition;
+        _curPosition = shape.transform.localPosition;
+
+        // sprite
         _renderer.flipX = data.LeftDirection;
         var anim = GetSprite(data.State);
         var index = anim.MapIndex(data.StateFrame);
         var sprite = anim.GetByIndex(index);
         _renderer.sprite = sprite;
         _renderer.color = data.OnDamage ? Color.red : Color.white;
-        _prevPosition = newPos;
+        
+        // views
         _stateView.Set(data, transform.position, sprite, anim, index);
     }
 
-    private Vector3 InterpolateAfterRollback(bool wasRollback, Vector3 newPos)
+    private void LateUpdate()
     {
-        if (float.IsInfinity(_prevPosition.x))
-            _prevPosition = newPos;
-
-        _wasRollback |= wasRollback;
-
-        _interpolactionIndicator.SetActive(_wasRollback);
-
-        if (_wasRollback)
-        {
-            newPos = Vector3.Lerp(_prevPosition, newPos, _lerpSpeed * Time.deltaTime);
-            if ((_prevPosition - newPos).sqrMagnitude < _lerpThreshold)
-                _wasRollback = false;
-        }
-
-        return newPos;
+        _interpolactionIndicator.SetActive(_lastPosition != _curPosition);
+        var pos = Vector3.Lerp(_lastPosition, _curPosition, _lerpSpeed * Time.deltaTime);
+        _lastPosition = pos;
+        transform.localPosition = pos;
     }
 
-    private bool IsWasRollback(Ser.Player data)
-    {
-        var curFrame = data.StateFrame;
-        var curState = data.State;
-
-        bool wasRoolback = (_prevState == curState) && curFrame - _prevFrame != 1;
-        
-        _prevFrame = curFrame;
-        _prevState = curState;
-
-        return wasRoolback;
-    }
-    
     private FixedAnimation GetSprite(Ser.PlayerState state)
     {
         return state switch

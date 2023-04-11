@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Net;
-using Api;
 using Game;
 using TMPro;
 using UnityEngine;
@@ -36,6 +33,17 @@ public class InitializeFieldView : MonoBehaviour
         _localPortFiled.onValueChanged.AddListener(LocalPortFieldChanged);
         _remoteIpField.onValueChanged.AddListener(RemoteIpFieldChanged);
         _connetBtn.onClick.AddListener(ConnectPressed);
+        
+
+        #if !UNITY_EDITOR
+        var args = Environment.GetCommandLineArgs();
+        if (args.Length > 1)
+        {
+            _localOrRemote.value = args[1] == "local" ? 0 : 1;
+            _localPortFiled.text = args[2];
+            _remoteIpField.text = args[3];
+        }
+        #endif
     }
 
     private void LocalOrRemoteValueChanged(int arg0)
