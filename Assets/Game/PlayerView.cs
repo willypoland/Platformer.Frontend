@@ -29,11 +29,12 @@ public class PlayerView : MonoBehaviour
         transform.localPosition = newPos;
         _renderer.flipX = data.LeftDirection;
         var anim = GetSprite(data.State);
-        var sprite = anim.Get(data.StateFrame);
+        var index = anim.MapIndex(data.StateFrame);
+        var sprite = anim.GetByIndex(index);
         _renderer.sprite = sprite;
         _renderer.color = data.OnDamage ? Color.red : Color.white;
         _prevPosition = newPos;
-        _stateView.Set(data, transform.position, _renderer.sprite, anim);
+        _stateView.Set(data, transform.position, sprite, anim, index);
     }
 
     private Vector3 InterpolateAfterRollback(bool wasRollback, Vector3 newPos)
@@ -67,21 +68,6 @@ public class PlayerView : MonoBehaviour
 
         return wasRoolback;
     }
-
-    // private Sprite GetSprite(Ser.Player data)
-    // {
-    //     return data.State switch
-    //     {
-    //         Ser.PlayerState.Idle           => _animator.GetSprite("Idle", data.StateFrame),
-    //         Ser.PlayerState.Run            => _animator.GetSprite("Run", data.StateFrame),
-    //         Ser.PlayerState.Jump           => _animator.GetSprite("Jump", data.StateFrame),
-    //         Ser.PlayerState.Falling        => _animator.GetSprite("Falling", data.StateFrame),
-    //         Ser.PlayerState.Landing        => _animator.GetSprite("Hurt", data.StateFrame),
-    //         Ser.PlayerState.AttackOnGround => _animator.GetSprite("Attack", data.StateFrame),
-    //         Ser.PlayerState.Death          => _animator.GetSprite("Death", data.StateFrame),
-    //         _ => throw new ArgumentOutOfRangeException(nameof(data), data, null)
-    //     };
-    // }
     
     private FixedAnimation GetSprite(Ser.PlayerState state)
     {

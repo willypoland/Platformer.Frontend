@@ -18,13 +18,17 @@ namespace Game
             _inputStep = 1f / _timeInFrames;
         }
 
+        private void Awake() => OnValidate();
+
         public int SpriteCount => _sprites.Length;
 
         public int TimeInFrames => _timeInFrames;
 
         public bool Repeate => _repeate;
 
-        public Sprite Get(int frame) => _sprites[MapIndex(frame)];
+        public Sprite GetByFrame(int frame) => GetByIndex(MapIndex(frame));
+
+        public Sprite GetByIndex(int index) => _sprites[index];
 
         public int MapIndex(int frame)
         {
@@ -33,7 +37,7 @@ namespace Game
         }
 
 #if UNITY_EDITOR
-        public static FixedAnimation Mock(int sprites, int timeInFrames, bool repeate)
+        public static FixedAnimation CreateTestMock(int sprites, int timeInFrames, bool repeate)
         {
             var so = CreateInstance<FixedAnimation>();
             so._sprites = new Sprite[sprites];

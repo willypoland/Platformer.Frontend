@@ -13,7 +13,7 @@ public class AnimationTests
     {
         const int maxInputFrames = 15;
         const int maxOutputFrames = 4;
-        var animation = FixedAnimation.Mock(maxOutputFrames, maxInputFrames, false);
+        var animation = FixedAnimation.CreateTestMock(maxOutputFrames, maxInputFrames, false);
         
         var actual = new int[maxInputFrames];
         

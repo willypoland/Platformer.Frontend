@@ -22,7 +22,7 @@ public class PlayerStateView : MonoBehaviour
 
     private Camera _camera;
 
-    public void Set(Player player, Vector3 world, Sprite sprite, FixedAnimation anim)
+    public void Set(Player player, Vector3 world, Sprite sprite, FixedAnimation anim, int index)
     {
         if (!gameObject.activeSelf)
             return;
@@ -34,8 +34,8 @@ public class PlayerStateView : MonoBehaviour
 
         _txtPosition.SetText("pos: ({0:1}  {1:1})", player.Obj.Position.X, player.Obj.Position.Y);
         _txtVelocity.SetText("vel: ({0:2}  {1:2})", player.Obj.Velocity.X, player.Obj.Velocity.Y);
-        _txtStateFrame.SetText("{0}", player.StateFrame);
         _txtAnimation.SetText($"{sprite.name} ({anim.SpriteCount} {anim.TimeInFrames} {anim.Repeate})");
+        _txtStateFrame.SetText("{0} -> {1}", player.StateFrame, (float)index);
         _txtState.SetText(GetStateName(player.State));
         UpdateColor(_txtOnGround, player.OnGround);
         UpdateColor(_txtOnDamage, player.OnDamage);

@@ -16,14 +16,10 @@ public class FixedAnimationController : ScriptableObject
     public Sprite GetSprite(int index, int frame)
     {
         Debug.Assert(index >= 0 && index < AnimationCount, "Invalid animation index");
-        return _animations[index].Get(frame);
+        return GetAnimation(index).GetByFrame(frame);
     }
 
-    public Sprite GetSprite(string animationName, int frame)
-    {
-        int index = GetIndex(animationName);
-        return GetSprite(index, frame);
-    }
+    public Sprite GetSprite(string animationName, int frame) => GetSprite(GetIndex(animationName), frame);
 
     public int GetIndex(string animationName)
     {
@@ -40,6 +36,6 @@ public class FixedAnimationController : ScriptableObject
     }
 
     public FixedAnimation GetAnimation(int index) => _animations[index];
-    
-    public FixedAnimation GetAnimation(string animationName) => _animations[GetIndex(animationName)];
+
+    public FixedAnimation GetAnimation(string animationName) => GetAnimation(GetIndex(animationName));
 }

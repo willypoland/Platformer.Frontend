@@ -60,7 +60,7 @@ namespace Game.Tests
 
         private void Play(FixedAnimation clip, int frame)
         {
-            _renderer.sprite = clip.Get(frame);
+            _renderer.sprite = clip.GetByFrame(frame);
         }
     }
 }
