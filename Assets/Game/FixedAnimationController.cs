@@ -38,4 +38,8 @@ public class FixedAnimationController : ScriptableObject
         
         return index;
     }
+
+    public FixedAnimation GetAnimation(int index) => _animations[index];
+    
+    public FixedAnimation GetAnimation(string animationName) => _animations[GetIndex(animationName)];
 }

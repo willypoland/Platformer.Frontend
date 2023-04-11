@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 863661461a064dcd861be21e74f34268, type: 3}
-  m_Name: FAnim Hurt
+  m_Name: Falling
   m_EditorClassIdentifier: 
   _sprites:
-  - {fileID: 21300090, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
-  - {fileID: 21300092, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
-  - {fileID: 21300094, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
-  _timeInFrames: 1
+  - {fileID: 21300082, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  - {fileID: 21300084, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  - {fileID: 21300086, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  - {fileID: 21300088, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  _timeInFrames: 60
   _repeate: 1

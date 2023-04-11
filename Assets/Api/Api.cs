@@ -14,8 +14,8 @@ namespace Api
 {
     internal static unsafe class Api
     {
-        private const string DllName = "frontend_ggpo.dll";
-        //private const string DllName = "frontend_async.dll";
+        //private const string DllName = "frontend_ggpo.dll";
+        private const string DllName = "frontend_sync.dll";
         
         [DllImport(DllName, SetLastError = true)]
         private static extern void RegisterPeer(int localPort, bool isMaster, sbyte* remoteHost, int remotePort);
@@ -40,7 +40,7 @@ namespace Api
             byte[] bytes = System.Text.Encoding.ASCII.GetBytes(remoteHost);
             fixed (byte* cstr = bytes)
             {
-                RegisterPeer(localPort, isMaster, (sbyte*)cstr, remotePort);
+                //RegisterPeer(localPort, isMaster, (sbyte*)cstr, remotePort);
             }
         }
         
