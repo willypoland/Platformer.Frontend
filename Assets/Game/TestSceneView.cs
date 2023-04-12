@@ -42,6 +42,8 @@ namespace Game
 #if !UNITY_EDITOR
             if (Environment.GetCommandLineArgs().Length > 1)
                 _platformer = PlatformerCore.CreateGGPO();
+            else
+                _platformer = PlatformerCore.CreateAsync();
 #else
             _platformer = PlatformerCore.CreateAsync();
 #endif
