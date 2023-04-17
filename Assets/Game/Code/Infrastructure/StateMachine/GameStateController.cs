@@ -17,6 +17,11 @@ namespace Game.Code.Infrastructure.StateMachine
             _resolver = resolver;
         }
 
+        public bool IsActive<TState>() where TState : class, IExitableState
+        {
+            return _activeState is TState;
+        }
+
         public void Add<TState>(TState state) where TState : class, IExitableState
         {
             _states.Add(typeof(TState), state);

@@ -19,18 +19,27 @@ namespace Game.Code.Logic
 
         public InputMap ReadInputMap()
         {
-            _settings ??= _settingsService.Read().KeyMap;
+            var keymap = Get();
             
             var map = new InputMap()
             {
-                LeftPressed = Input.GetKey(_settings.left),
-                RightPressed = Input.GetKey(_settings.Right),
-                UpPressed = Input.GetKey(_settings.Jump),
-                DownPressed = Input.GetKey(_settings.Down),
-                LeftMouseClicked = Input.GetKey(_settings.Attack),
+                LeftPressed = Input.GetKey(keymap.left),
+                RightPressed = Input.GetKey(keymap.Right),
+                UpPressed = Input.GetKey(keymap.Jump),
+                DownPressed = Input.GetKey(keymap.Down),
+                LeftMouseClicked = Input.GetKey(keymap.Attack),
             };
 
             return map;
+        }
+
+        public bool Exit => Input.GetKeyDown(Get().Exit);
+
+        public float Wheel => Input.mouseScrollDelta.y;
+
+        private KeyMapSettings Get()
+        {
+            return _settings ??= _settingsService.Read().KeyMap;
         }
     }
 }

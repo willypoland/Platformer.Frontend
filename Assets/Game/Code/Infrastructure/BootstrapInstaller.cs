@@ -27,9 +27,10 @@ namespace Game.Code.Infrastructure
             builder.RegisterInstance(_config).AsSelf();
             builder.RegisterInstance(_coroutineRunner).As<ICoroutineRunner>();
             builder.RegisterInstance(FindObjectOfType<ConnectionSetupWindow>()).As<IConnectionSetupView>();
-            builder.RegisterInstance(FindObjectOfType<SettingsWindow>()).As<ISettingsWindow>();
+            builder.RegisterInstance(FindObjectOfType<SettingsView>()).As<ISettingsView>();
             builder.RegisterInstance(FindObjectOfType<ConnectionStatus>()).As<IStatusView>();
             builder.RegisterInstance(FindObjectOfType<SceneViewObjectFactory>()).As<IViewObjectFactory>();
+            builder.RegisterInstance(Camera.main).AsSelf();
             
             builder.Register<ConnectionArguments>(Lifetime.Singleton).AsSelf();
             builder.Register<GameStateController>(Lifetime.Singleton).As<IStateController>();
@@ -37,6 +38,8 @@ namespace Game.Code.Infrastructure
             builder.Register<InputService>(Lifetime.Singleton).As<IInputService>();
             builder.Register<GameplayState>(Lifetime.Singleton).AsSelf();
             builder.Register<ConnectionState>(Lifetime.Singleton).AsSelf();
+
+            builder.RegisterEntryPoint<GameSettingsController>();
         }
 
         private void Start()
