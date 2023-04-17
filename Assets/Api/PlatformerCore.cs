@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Api
 {
+    [Obsolete]
     public class PlatformerCore
     {
         public const int MaxBufferSize = 512;

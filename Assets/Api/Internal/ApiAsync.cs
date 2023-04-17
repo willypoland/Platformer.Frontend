@@ -3,11 +3,11 @@
 
 namespace Api
 {
-    internal unsafe class ApiSync : IApi
+    internal unsafe class ApiAsync : IApi
     {
-        private const string DllName = "frontend_sync.dll";
+        private const string DllName = "frontend_async.dll";
 
-        string IApi.DllNAme => DllName;
+        string IApi.DllName => DllName;
 
         void IApi.StartGame()
         {

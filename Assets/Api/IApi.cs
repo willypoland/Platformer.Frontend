@@ -1,8 +1,8 @@
 ﻿namespace Api
 {
-    internal interface IApi
+    public interface IApi
     {
-        string DllNAme { get; }
+        string DllName { get; }
         GameStatus GetStatus();
         void StartGame();
         void StopGame();

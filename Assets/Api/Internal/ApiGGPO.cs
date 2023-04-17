@@ -6,7 +6,7 @@ namespace Api
     {
         private const string DllName = "frontend_ggpo.dll";
 
-        string IApi.DllNAme => DllName;
+        string IApi.DllName => DllName;
 
         void IApi.StartGame()
         {
