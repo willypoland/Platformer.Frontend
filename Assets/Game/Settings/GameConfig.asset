@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ec382a18b94c0892b6eb210adaa4ee, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
+  _platformShapeColor: {r: 0.99607843, g: 0.7921569, b: 0.34117648, a: 1}
+  _playerShapeColor: {r: 0.78431374, g: 0.8392157, b: 0.8980392, a: 1}
+  _attackShapeColor: {r: 1, g: 0.41960785, b: 0.41960785, a: 1}
+  _lerpSpeed: 30

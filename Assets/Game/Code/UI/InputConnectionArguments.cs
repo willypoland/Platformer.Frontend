@@ -3,7 +3,7 @@
     public class InputConnectionArguments
     {
         public bool IsMaster;
-        public string LocalPort;
-        public string RemoteAddress;
+        public ValidatedField<string> LocalPort;
+        public ValidatedField<string> RemoteAddress;
     }
 }

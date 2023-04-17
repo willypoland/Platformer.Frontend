@@ -3,10 +3,10 @@
     [System.Serializable]
     public sealed class GameSettings
     {
-        public readonly GraphicsSettings Graphics = new();
-        public readonly OtherSettings Other = new();
-        public readonly KeyMapSettings KeyMap = new();
-        public readonly ConnectionArguments InitialConnection = new();
+        public GraphicsSettings Graphics = new();
+        public OtherSettings Other = new();
+        public KeyMapSettings KeyMap = new();
+        public ConnectionArguments InitialConnection = new();
     }
     
     

@@ -1,1 +1,29 @@
-{}
+{
+    "Graphics": {
+        "ProjectionSize": 100.0,
+        "TargetFramerate": 60,
+        "Vsync": true
+    },
+    "Other": {
+        "EnablePositionLerp": true,
+        "ShowPlayerShape": false,
+        "BackendType": 0
+    },
+    "KeyMap": {
+        "Right": 100,
+        "left": 97,
+        "Jump": 119,
+        "Down": 115,
+        "Attack": 323,
+        "ConnectionWindow": 9,
+        "SettingsWindow": 9,
+        "Exit": 27,
+        "DebugInfo": 96
+    },
+    "InitialConnection": {
+        "IsMaster": true,
+        "LocalPort": 7000,
+        "RemoteIp": "127.0.0.1",
+        "RemotePort": 7001
+    }
+}

@@ -12,7 +12,9 @@ namespace Game.Code.Services
         private GameSettings _settings;
         private string _json;
         private DateTime _lastWrite;
-        
+
+        public event Action<GameSettings> Changed; 
+
         public GameSettings Read()
         {
             var path = GetPath();
@@ -38,14 +40,14 @@ namespace Game.Code.Services
                 _json = File.ReadAllText(path);
                 _settings = JsonUtility.FromJson<GameSettings>(_json);
             }
-
+            
             _lastWrite = last;
         }
 
         private void CreateSettingsFile(string path)
         {
             _settings = new GameSettings();
-            _json = JsonUtility.ToJson(_settings);
+            _json = JsonUtility.ToJson(_settings, true);
             File.WriteAllText(path, _json);
             _lastWrite = File.GetLastWriteTime(path);
         }
@@ -60,6 +62,7 @@ namespace Game.Code.Services
                 File.WriteAllText(path, newJson);
                 _json = newJson;
                 _settings = settings;
+                Changed?.Invoke(_settings);
             }
         }
         

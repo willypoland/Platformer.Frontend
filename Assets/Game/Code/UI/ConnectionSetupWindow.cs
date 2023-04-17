@@ -1,4 +1,6 @@
 ﻿using System;
+using Game.Code.Data;
+using Game.Code.UI.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +8,8 @@ using UnityEngine.UI;
 
 namespace Game.Code.UI
 {
-    public class ConnectionSetupWindow : MonoBehaviour, IConnectionSetupWindow
+
+    public class ConnectionSetupWindow : MonoBehaviour, IConnectionSetupView
     {
         [SerializeField] private Toggle _toggleLocal;
         [SerializeField] private TMP_InputField _localPortField;
@@ -29,13 +32,17 @@ namespace Game.Code.UI
         
         private void Awake()
         {
+            _arguments = new InputConnectionArguments();
+            _arguments.LocalPort.Field = "";
+            _arguments.RemoteAddress.Field = "";
+            
             _toggleLocal.onValueChanged.AddListener(x => _arguments.IsMaster = x);
             _toggleLocal.onValueChanged.AddListener(_ => Validation());
             
-            _localPortField.onValueChanged.AddListener(x => _arguments.LocalPort = x);
+            _localPortField.onValueChanged.AddListener(x => _arguments.LocalPort.Field = x);
             _localPortField.onValueChanged.AddListener(_ => Validation());
             
-            _remoteAddressField.onValueChanged.AddListener(x => _arguments.RemoteAddress = x);
+            _remoteAddressField.onValueChanged.AddListener(x => _arguments.RemoteAddress.Field = x);
             _remoteAddressField.onValueChanged.AddListener(_ => Validation());
             
             _connectionButton.onClick.AddListener(OnClickConnection);
@@ -49,12 +56,12 @@ namespace Game.Code.UI
 
         private void Validation()
         {
+            _arguments.LocalPort.Message = null;
+            _arguments.RemoteAddress.Message = null;
+            _arguments.LocalPort.IsValid = true;
+            _arguments.RemoteAddress.IsValid = true;
             var result = InputChanged?.Invoke(_arguments);
-            
             MapResultFields(result);
-            
-            if (result != null)
-                _arguments = result;
         }
 
         private void OnClickConnection()
@@ -64,19 +71,17 @@ namespace Game.Code.UI
 
         private void MapResultFields(InputConnectionArguments arguments)
         {
-            bool anyError = false;
-
-            anyError |= !ValidateField(arguments?.LocalPort, _localPortField.textComponent);
-            anyError |= !ValidateField(arguments?.RemoteAddress, _remoteAddressField.textComponent);
-
-            _connectionButton.enabled = anyError;
+            _toggleLocal.isOn = arguments.IsMaster;
+            SetupColor(_localPortField, arguments.LocalPort);
+            SetupColor(_remoteAddressField, arguments.RemoteAddress);
+            _connectionButton.interactable = arguments.LocalPort.IsValid && arguments.RemoteAddress.IsValid;
         }
 
-        private bool ValidateField(string param, Graphic graphic)
+        private void SetupColor(TMP_InputField input, ValidatedField<string> field)
         {
-            bool result = param != null;
-            graphic.color = result ? _validInputColor : _invalidInputColor;
-            return result;
+            input.textComponent.color = field.IsValid ? _validInputColor : _invalidInputColor;
+            if (field.IsValid)
+                input.SetTextWithoutNotify(field.Field);
         }
     }
 

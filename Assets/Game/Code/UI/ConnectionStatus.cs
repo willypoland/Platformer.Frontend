@@ -9,6 +9,7 @@ namespace Game.Code.UI
         [SerializeField] private SimpleColoredStatus _background;
         [SerializeField] private SimpleColoredStatus _foreground;
 
+        
 
         public void Inactive()
         {

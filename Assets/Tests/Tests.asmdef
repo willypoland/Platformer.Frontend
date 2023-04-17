@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Platformer.Game",
-        "CsUtility"
+        "CsUtility",
+        "Platformer.Api"
     ],
     "includePlatforms": [
         "Editor"

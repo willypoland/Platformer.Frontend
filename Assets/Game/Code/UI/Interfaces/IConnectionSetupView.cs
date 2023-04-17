@@ -1,9 +1,9 @@
 ﻿using System;
 
 
-namespace Game.Code.UI
+namespace Game.Code.UI.Interfaces
 {
-    public interface IConnectionSetupWindow
+    public interface IConnectionSetupView
     {
         event Func<InputConnectionArguments, InputConnectionArguments> InputChanged;
         event Action ClickConnection;
