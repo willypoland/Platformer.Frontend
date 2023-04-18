@@ -102,20 +102,28 @@ namespace Game.Code.Logic
 
         private void ViewOnClickConnection()
         {
-#if !UNITY_EDITOR
+#if UNITY_EDITOR
             var args = Environment.GetCommandLineArgs();
             BackendType type;
-            if (args[1].Contains("sync"))
+
+            if (args.Length > 1)
             {
-                type = BackendType.Sync;
-            }
-            else if (args[1].Contains("async"))
-            {
-                type = BackendType.Async;
-            }
-            else if (args[1].Contains("ggpo"))
-            {
-                type = BackendType.GGPO;
+                if (args[1].Contains("sync"))
+                {
+                    type = BackendType.Sync;
+                }
+                else if (args[1].Contains("async"))
+                {
+                    type = BackendType.Async;
+                }
+                else if (args[1].Contains("ggpo"))
+                {
+                    type = BackendType.GGPO;
+                }
+                else
+                {
+                    type = _settingsService.Read().Other.BackendType;    
+                }
             }
             else
             {
