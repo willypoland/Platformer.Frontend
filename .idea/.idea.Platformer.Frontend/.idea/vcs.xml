@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Assets/Plugins/CsUtility" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Assets/Plugins/Roz.Common" vcs="Git" />
   </component>
 </project>
