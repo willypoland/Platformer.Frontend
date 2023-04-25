@@ -39,7 +39,7 @@ public class ExtendedSlider : MonoBehaviour
         _input.onSubmit.AddListener(OnInputFieldValueChanged);
         UpdateFields(_value, _min, _max);
     }
-
+    
     public void Set(float value, float min, float max)
     {
         if (value != _value || _min != min || _max != max)
@@ -66,6 +66,10 @@ public class ExtendedSlider : MonoBehaviour
         {
             if (_value != result) 
                 UpdateFields(result, _min, _max);
+        }
+        else
+        {
+            _input.SetTextWithoutNotify(_value.ToString(_format, CultureInfo.InvariantCulture));
         }
     }
 
