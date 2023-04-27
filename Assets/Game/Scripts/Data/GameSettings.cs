@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace Game.Code.Data.Settings
+namespace Game.Scripts.Data
 {
     [System.Serializable]
     public sealed class GameSettings

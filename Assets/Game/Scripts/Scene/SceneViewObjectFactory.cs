@@ -1,10 +1,10 @@
 ﻿using CsUtility.Pool;
-using Game.Code.Data;
-using Game.Code.Logic;
+using Game.Scripts.Data;
+using Game.Scripts.Services;
 using UnityEngine;
 
 
-namespace Game.Code.Scene
+namespace Game.Scripts.Scene
 {
     public class SceneViewObjectFactory : MonoBehaviour, IViewObjectFactory,
                                           IObjectPoolFactory<ShapeView>,

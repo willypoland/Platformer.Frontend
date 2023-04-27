@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace Game.Code.Scene
+namespace Game.Scripts.Scene
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class ShapeView : MonoBehaviour

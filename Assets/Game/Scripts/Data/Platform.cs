@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using Game.Scripts.Logic;
+using UnityEngine;
 
 
-namespace Game
+namespace Game.Scripts.Data
 {
     public struct Platform
     {
         public int Id;
-        public int Type;
+        public PlatformType Type;
         public int Width;
         public int Height;
         public Vector2Int Position;

@@ -1,4 +1,4 @@
-﻿namespace Game.Code.Data.Settings
+﻿namespace Game.Scripts.Data
 {
     public enum BackendType
     {

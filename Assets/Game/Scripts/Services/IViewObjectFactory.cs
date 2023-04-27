@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace Game.Code.Logic
+namespace Game.Scripts.Services
 {
     public interface IViewObjectFactory
     {

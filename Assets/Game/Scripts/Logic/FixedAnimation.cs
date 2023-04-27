@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-namespace Game
+namespace Game.Scripts.Logic
 {
     [CreateAssetMenu(menuName = "Game/Fixed animation")]
     public class FixedAnimation : ScriptableObject

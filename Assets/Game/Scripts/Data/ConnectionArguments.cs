@@ -2,7 +2,7 @@
 using System.Net;
 
 
-namespace Game.Code.Data
+namespace Game.Scripts.Data
 {
     [System.Serializable]
     public class ConnectionArguments

@@ -1,4 +1,4 @@
-﻿namespace Game.Code.Data
+﻿namespace Game.Scripts.Data
 {
     public class Constants
     {

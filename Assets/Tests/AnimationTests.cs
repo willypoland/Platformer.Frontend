@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Game;
+using Game.Scripts.Logic;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;

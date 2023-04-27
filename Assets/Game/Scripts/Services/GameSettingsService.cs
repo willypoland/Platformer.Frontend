@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using Game.Code.Data;
-using Game.Code.Data.Settings;
+using Game.Scripts.Data;
 using UnityEngine;
 
 
-namespace Game.Code.Services
+namespace Game.Scripts.Services
 {
     public class GameSettingsService
     {

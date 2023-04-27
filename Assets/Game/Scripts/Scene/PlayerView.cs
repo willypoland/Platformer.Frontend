@@ -1,9 +1,10 @@
 using System;
-using Game.Code.Data;
+using Game.Scripts.Data;
+using Game.Scripts.Logic;
 using UnityEngine;
 
 
-namespace Game.Code.Scene
+namespace Game.Scripts.Scene
 {
     public class PlayerView : MonoBehaviour
     {
