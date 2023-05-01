@@ -1,5 +1,5 @@
 ﻿using System;
-using CsUtility.Extensions;
+using Api;
 using Game.Scripts.Common;
 using Game.Scripts.Data;
 using Game.Scripts.Infrastructure;
@@ -41,10 +41,23 @@ namespace Game.Scripts.Logic
             Gizmos.DrawWireCube(_offset, _size);
         }
 
-        public Rect GetRect()
+        public Platform ToPlatform(int id, GameConfig config)
         {
-            Vector2 min = transform.TransformPoint(_size / -2f);
-            return new Rect(min.x, min.y, _size.x, _size.y);
+            Vector2 size = transform.TransformVector(_size);
+            Vector2 topLeft = transform.TransformPoint(-0.5f, 0.5f, 0f);
+            if (config.FlipY)
+                topLeft.y = -topLeft.y;
+
+            Platform platform = new()
+            {
+                Id = id,
+                Type = _type,
+                Width = Mathf.RoundToInt(size.x * config.UnitScale),
+                Height = Mathf.RoundToInt(size.y * config.UnitScale),
+                Position = (topLeft * config.UnitScale).RoundToInt(),
+            };
+
+            return platform;
         }
     }
 }

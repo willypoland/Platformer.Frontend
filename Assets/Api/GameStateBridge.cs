@@ -52,15 +52,18 @@ namespace Api
 
         private class PlayerBridge : IPlayer
         {
+            private GameObjectBridge _object = new();
+            
             public void Update(Ser.Player player)
             {
                 _object.Update(player.Obj);
-                _state = (Api.PlayerState) (int) player.State;
-                _stateFrame = player.StateFrame;
-                _prevInput = MapInput(player.PrevInput);
-                _onGround = player.OnGround;
-                _onDamage = player.OnDamage;
-                _leftDireciton = player.LeftDirection;
+                State = (Api.PlayerState) (int) player.State;
+                StateFrame = player.StateFrame;
+                OnGround = player.OnGround;
+                OnDamage = player.OnDamage;
+                LeftDireciton = player.LeftDirection;
+                CurrentHealth = player.CurrentHealth;
+                MaxHealth = player.MaxHealth;
             }
 
             private static InputMap MapInput(int bs)
@@ -74,21 +77,14 @@ namespace Api
                 return input;
             }
 
-            private readonly GameObjectBridge _object = new();
-            private PlayerState _state;
-            private int _stateFrame;
-            private InputMap _prevInput;
-            private bool _onGround;
-            private bool _onDamage;
-            private bool _leftDireciton;
-
-            IGameObject IPlayer.Object => _object;
-            PlayerState IPlayer.State => _state;
-            int IPlayer.StateFrame => _stateFrame;
-            InputMap IPlayer.PrevNput => _prevInput;
-            bool IPlayer.OnGround => _onGround;
-            bool IPlayer.OnDamage => _onDamage;
-            bool IPlayer.LeftDireciton => _leftDireciton;
+            public IGameObject Object => _object;
+            public PlayerState State { get; private set; }
+            public int StateFrame { get; private set; }
+            public bool OnGround { get; private set; }
+            public bool OnDamage { get; private set; }
+            public bool LeftDireciton { get; private set; }
+            public int CurrentHealth { get; private set; }
+            public int MaxHealth { get; private set; }
         }
 
 
@@ -96,18 +92,14 @@ namespace Api
         {
             public void Update(Ser.GameObject source)
             {
-                _size = new Vector2(source.Width, source.Height);
-                _position = new Vector2(source.Position.X, source.Position.Y);
-                _velocity = new Vector2(source.Velocity.X, source.Velocity.Y);
+                Size = new Vector2(source.Width, source.Height);
+                Position = new Vector2(source.Position.X, source.Position.Y);
+                Velocity = new Vector2(source.Velocity.X, source.Velocity.Y);
             }
 
-            private Vector2 _size;
-            private Vector2 _position;
-            private Vector2 _velocity;
-
-            Vector2 IGameObject.Size => _size;
-            Vector2 IGameObject.Position => _position;
-            Vector2 IGameObject.Velocity => _velocity;
+            public Vector2 Size { get; private set; }
+            public Vector2 Position { get; private set; }
+            public Vector2 Velocity { get; private set; }
         }
     }
 }

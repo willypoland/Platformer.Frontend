@@ -28,22 +28,23 @@ namespace Ser {
             "eRgCIAEoBSKHAQoKR2FtZU9iamVjdBIaCgRtZXNoGAEgAygLMgwuc2VyLlZl",
             "Y3RvcjISDQoFd2lkdGgYAiABKAUSDgoGaGVpZ2h0GAMgASgFEh4KCHBvc2l0",
             "aW9uGAQgASgLMgwuc2VyLlZlY3RvcjISHgoIdmVsb2NpdHkYBSABKAsyDC5z",
-            "ZXIuVmVjdG9yMiKuAQoGUGxheWVyEhwKA29iahgBIAEoCzIPLnNlci5HYW1l",
+            "ZXIuVmVjdG9yMiLaAQoGUGxheWVyEhwKA29iahgBIAEoCzIPLnNlci5HYW1l",
             "T2JqZWN0Eh8KBXN0YXRlGAIgASgOMhAuc2VyLlBsYXllclN0YXRlEhMKC3N0",
             "YXRlX2ZyYW1lGAMgASgFEhIKCnByZXZfaW5wdXQYBCABKAUSEQoJb25fZ3Jv",
             "dW5kGAUgASgIEhEKCW9uX2RhbWFnZRgGIAEoCBIWCg5sZWZ0X2RpcmVjdGlv",
-            "bhgHIAEoCCKEAQoJR2FtZVN0YXRlEg0KBWZyYW1lGAEgASgFEhwKB3BsYXll",
-            "cnMYAiADKAsyCy5zZXIuUGxheWVyEiIKCXBsYXRmb3JtcxgDIAMoCzIPLnNl",
-            "ci5HYW1lT2JqZWN0EiYKDW1lbGVlX2F0dGFja3MYBCADKAsyDy5zZXIuR2Ft",
-            "ZU9iamVjdCplCgtQbGF5ZXJTdGF0ZRIICgRJRExFEAASBwoDUlVOEAESCAoE",
-            "SlVNUBACEgsKB0ZBTExJTkcQAxILCgdMQU5ESU5HEAQSFAoQQVRUQUNLX09O",
-            "X0dST1VORBAFEgkKBURFQVRIEAZiBnByb3RvMw=="));
+            "bhgHIAEoCBIWCg5jdXJyZW50X2hlYWx0aBgIIAEoBRISCgptYXhfaGVhbHRo",
+            "GAkgASgFIoQBCglHYW1lU3RhdGUSDQoFZnJhbWUYASABKAUSHAoHcGxheWVy",
+            "cxgCIAMoCzILLnNlci5QbGF5ZXISIgoJcGxhdGZvcm1zGAMgAygLMg8uc2Vy",
+            "LkdhbWVPYmplY3QSJgoNbWVsZWVfYXR0YWNrcxgEIAMoCzIPLnNlci5HYW1l",
+            "T2JqZWN0KmUKC1BsYXllclN0YXRlEggKBElETEUQABIHCgNSVU4QARIICgRK",
+            "VU1QEAISCwoHRkFMTElORxADEgsKB0xBTkRJTkcQBBIUChBBVFRBQ0tfT05f",
+            "R1JPVU5EEAUSCQoFREVBVEgQBmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Ser.PlayerState), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Ser.Vector2), global::Ser.Vector2.Parser, new[]{ "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ser.GameObject), global::Ser.GameObject.Parser, new[]{ "Mesh", "Width", "Height", "Position", "Velocity" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ser.Player), global::Ser.Player.Parser, new[]{ "Obj", "State", "StateFrame", "PrevInput", "OnGround", "OnDamage", "LeftDirection" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ser.Player), global::Ser.Player.Parser, new[]{ "Obj", "State", "StateFrame", "PrevInput", "OnGround", "OnDamage", "LeftDirection", "CurrentHealth", "MaxHealth" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ser.GameState), global::Ser.GameState.Parser, new[]{ "Frame", "Players", "Platforms", "MeleeAttacks" }, null, null, null, null)
           }));
     }
@@ -631,6 +632,8 @@ namespace Ser {
       onGround_ = other.onGround_;
       onDamage_ = other.onDamage_;
       leftDirection_ = other.leftDirection_;
+      currentHealth_ = other.currentHealth_;
+      maxHealth_ = other.maxHealth_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -716,6 +719,28 @@ namespace Ser {
       }
     }
 
+    /// <summary>Field number for the "current_health" field.</summary>
+    public const int CurrentHealthFieldNumber = 8;
+    private int currentHealth_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CurrentHealth {
+      get { return currentHealth_; }
+      set {
+        currentHealth_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "max_health" field.</summary>
+    public const int MaxHealthFieldNumber = 9;
+    private int maxHealth_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int MaxHealth {
+      get { return maxHealth_; }
+      set {
+        maxHealth_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Player);
@@ -736,6 +761,8 @@ namespace Ser {
       if (OnGround != other.OnGround) return false;
       if (OnDamage != other.OnDamage) return false;
       if (LeftDirection != other.LeftDirection) return false;
+      if (CurrentHealth != other.CurrentHealth) return false;
+      if (MaxHealth != other.MaxHealth) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -749,6 +776,8 @@ namespace Ser {
       if (OnGround != false) hash ^= OnGround.GetHashCode();
       if (OnDamage != false) hash ^= OnDamage.GetHashCode();
       if (LeftDirection != false) hash ^= LeftDirection.GetHashCode();
+      if (CurrentHealth != 0) hash ^= CurrentHealth.GetHashCode();
+      if (MaxHealth != 0) hash ^= MaxHealth.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -793,6 +822,14 @@ namespace Ser {
         output.WriteRawTag(56);
         output.WriteBool(LeftDirection);
       }
+      if (CurrentHealth != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(CurrentHealth);
+      }
+      if (MaxHealth != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(MaxHealth);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -830,6 +867,14 @@ namespace Ser {
         output.WriteRawTag(56);
         output.WriteBool(LeftDirection);
       }
+      if (CurrentHealth != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(CurrentHealth);
+      }
+      if (MaxHealth != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(MaxHealth);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -859,6 +904,12 @@ namespace Ser {
       }
       if (LeftDirection != false) {
         size += 1 + 1;
+      }
+      if (CurrentHealth != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrentHealth);
+      }
+      if (MaxHealth != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxHealth);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -894,6 +945,12 @@ namespace Ser {
       }
       if (other.LeftDirection != false) {
         LeftDirection = other.LeftDirection;
+      }
+      if (other.CurrentHealth != 0) {
+        CurrentHealth = other.CurrentHealth;
+      }
+      if (other.MaxHealth != 0) {
+        MaxHealth = other.MaxHealth;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -940,6 +997,14 @@ namespace Ser {
             LeftDirection = input.ReadBool();
             break;
           }
+          case 64: {
+            CurrentHealth = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            MaxHealth = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -983,6 +1048,14 @@ namespace Ser {
           }
           case 56: {
             LeftDirection = input.ReadBool();
+            break;
+          }
+          case 64: {
+            CurrentHealth = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            MaxHealth = input.ReadInt32();
             break;
           }
         }

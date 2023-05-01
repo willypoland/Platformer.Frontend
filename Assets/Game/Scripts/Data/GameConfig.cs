@@ -11,7 +11,7 @@ namespace Game.Scripts.Data
         [SerializeField] private float _lerpSpeed = 30f;
         [SerializeField] private Vector2 _maxSceneSize = new Vector2(1000f, 1000f);
         [SerializeField] private float _unitScale = 32f;
-        [SerializeField] private Vector2 _unitMultiply = new Vector2(1f, -1f);
+        [SerializeField] private bool _flipY = true;
         [SerializeField] private Color _platfromMarkerColor = new Color(0.3f, 0.9f, 0.2f, 0.5f);
         [SerializeField] private Color _platfromMarkerInvalidColor = Color.red;
         
@@ -19,7 +19,7 @@ namespace Game.Scripts.Data
         public Color PlayerShapeColor => _playerShapeColor;
         public Color AttackShapeColor => _attackShapeColor;
         public float LerpSpeed => _lerpSpeed;
-        public Vector2 UnitMultiply => _unitMultiply;
+        public bool FlipY => _flipY;
         public float UnitScale => _unitScale;
         public Vector2 MaxSceneSize => _maxSceneSize;
         public Color PlatfromMarkerInvalidColor => _platfromMarkerInvalidColor;

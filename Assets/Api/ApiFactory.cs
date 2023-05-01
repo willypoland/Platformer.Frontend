@@ -1,4 +1,7 @@
-﻿namespace Api
+﻿using Api.Internal;
+
+
+namespace Api
 {
     public static class ApiFactory
     {

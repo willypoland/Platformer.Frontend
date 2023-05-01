@@ -10,5 +10,6 @@ namespace Api
         [MarshalAs(UnmanagedType.I1)] public bool UpPressed;
         [MarshalAs(UnmanagedType.I1)] public bool DownPressed;
         [MarshalAs(UnmanagedType.I1)] public bool LeftMouseClicked;
+        [MarshalAs(UnmanagedType.I1)] public bool RightMouseClicked;
     }
 }

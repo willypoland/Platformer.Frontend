@@ -3,11 +3,15 @@
 
 namespace Api
 {
-    public interface IApi
+    public interface IApi // TODO Should rename
     {
         string DllName { get; }
 
-        GameStatus GetStatus();
+        void Init(Location location);
+
+        Endpoint GetPublicEndpoint(int localPort);
+
+        void RegisterPeer(Endpoint peerEndpoint);
 
         void StartGame();
 
@@ -17,6 +21,10 @@ namespace Api
 
         int GetState(byte[] buffer);
 
-        void RegisterPeer(int localPort, bool isMaster, string remoteHost, int remotePort);
+        GameStatus GetStatus();
+
+        PlatformerErrorCode GetErrorCode();
     }
+
+
 }
