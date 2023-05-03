@@ -1,49 +1,57 @@
 using System;
+using System.Linq;
 using Api;
 using Game.Scripts.Common;
 using Game.Scripts.Data;
 using Game.Scripts.Infrastructure;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace Game.Scripts.Logic
 {
     public class GameLoop : MonoBehaviour
     {
-        [SerializeField] private TransformMarker _player1Pos;
-        [SerializeField] private TransformMarker _player2Pos;
+        [SerializeField] private Text _tickFps;
+        [SerializeField] private Text _drawFps;
+        
         [SerializeField] private Transform _platformsRoot;
+        [SerializeField] private Transform _playersRoot;
+        [SerializeField, Range(0, 1)] private int _activePlayer = 0;
 
-        private readonly byte[] _buffer = new byte[512];
+        private InterpolatedGameObjectView[] _players;
+        private PlatformView[] _platforms;
+        private CameraPursuer _cameraPursuer;
+        private GameConfig _config;
+
+        private readonly byte[] _buffer = new byte[2048];
         private SceneConverter _converter;
         private IApi _api;
         private IGameState _gs;
 
+        private float _prevTickTime;
+        private float _lastTickTime;
+
+        private int _prevFrame;
+
         private void Start()
         {
-            var config = Resources.Load<GameConfig>(AssetPath.GameConfig);
-            _converter = new SceneConverter(config);
-
-            // SetupTestScene(_player1Pos.transform.parent, _converter,
-            //     new RectInt(192, 702, 0, 0),
-            //     new RectInt(96, 704, 0, 0));
-            //
-            // SetupTestScene(_platformsRoot, _converter,
-            //     new RectInt(0, 864, 864, 32),
-            //     new RectInt(256, 608, 192, 32),
-            //     new RectInt(672, 736, 224, 32),
-            //     new RectInt(0, 640, 32, 256),
-            //     new RectInt(864, 640, 32, 256));
+            _players = _playersRoot.GetComponentsInChildren<InterpolatedGameObjectView>();
+            _platforms = _platformsRoot.GetComponentsInChildren<PlatformView>();
+            _cameraPursuer = FindObjectOfType<CameraPursuer>();
+            
+            _config = Resources.Load<GameConfig>(AssetPath.GameConfig);
+            _converter = new SceneConverter(_config);
 
             Location location = new()
             {
-                IsFirstPlayer = true,
-                PositionFirstPlayer = _converter.ToCoreRect(_player1Pos.ToViewRect()).position,
-                PositionSecondPlayer = _converter.ToCoreRect(_player2Pos.ToViewRect()).position,
-                Platfroms = GatherPlatforms(_platformsRoot, _converter),
+                IsFirstPlayer = _activePlayer == 0,
+                PositionFirstPlayer = _converter.ToCoreRect(_players[0].GameObjectView.ToViewRect()).position,
+                PositionSecondPlayer = _converter.ToCoreRect(_players[1].GameObjectView.ToViewRect()).position,
+                Platfroms = _platforms.Select((x, i) => _converter.ToCorePlatform(i, x.Type, x.Rect)).ToArray(),
             };
 
-            _api = ApiFactory.CreateApiSync();
+            _api = ApiFactory.CreateApiAsync();
             _gs = ApiFactory.CreateGameState();
             _api.Init(location);
             _api.StartGame();
@@ -51,9 +59,7 @@ namespace Game.Scripts.Logic
 
         private void Update()
         {
-            var status = _api.GetStatus();
-
-            if (ShouldSkipFrame(status))
+            if (_api.GetStatus() != GameStatus.RUN)
                 return;
 
             var input = GatherInput();
@@ -62,15 +68,32 @@ namespace Game.Scripts.Logic
             int len = _api.GetState(_buffer);
             _gs.Update(_buffer, len);
 
-            UpdatePlayersView(_gs.Players);
+            if (_gs.Frame != _prevFrame)
+            {
+                _prevTickTime = _lastTickTime;
+                _lastTickTime = Time.realtimeSinceStartup;
+                UpdatePlayersView(_gs.Players);
+                _prevFrame = _gs.Frame;
+            }
+
+            UpdateCamera();
+
+            UpdateGUI();
+            UpdateInputHelper();
         }
 
-        private void UpdatePlayersView(ReadOnlySpan<IPlayer> players)
+        private void UpdateInputHelper()
         {
-            var rect1 = new RectInt(players[0].Object.Position.RoundToInt(), players[0].Object.Size.RoundToInt());
-            var rect2 = new RectInt(players[1].Object.Position.RoundToInt(), players[1].Object.Size.RoundToInt());
-            _player1Pos.SetViewRect(_converter.ToViewRect(rect1));
-            _player2Pos.SetViewRect(_converter.ToViewRect(rect2));
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                QualitySettings.vSyncCount = (QualitySettings.vSyncCount + 1) % 3;
+            }
+        }
+
+        private void UpdateGUI()
+        {
+            _tickFps.text = (1f / (_lastTickTime - _prevTickTime)).ToString("F2");
+            _drawFps.text = (1f / Time.deltaTime).ToString("F2");
         }
 
         private void OnDisable()
@@ -78,39 +101,31 @@ namespace Game.Scripts.Logic
             _api.StopGame();
         }
 
-        private static bool ShouldSkipFrame(GameStatus status)
+        private void UpdatePlayersView(ReadOnlySpan<IPlayer> players)
         {
-            return status switch
-            {
-                GameStatus.INVALID => true,
-                GameStatus.RUN => false,
-                GameStatus.SYNC => true,
-                GameStatus.STOPED => true,
-                _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
-            };
-        }
-
-        private static Platform[] GatherPlatforms(Transform root, SceneConverter converter)
-        {
-            var markers = root.GetComponentsInChildren<PlatformMarker>();
-            int count = markers.Length;
-            var platforms = new Platform[count];
+            int count = Mathf.Min(players.Length, _players.Length);
 
             for (int i = 0; i < count; i++)
-                platforms[i] = converter.ToCorePlatform(i, markers[i].Type, markers[i].Rect);
-
-            return platforms;
+            {
+                var obj = players[i].Object;
+                var rect = new RectInt(obj.Position.RoundToInt(), obj.Size.RoundToInt());
+                var viewRect = _converter.ToViewRect(rect);
+                _players[i].SetPosition(viewRect.position, _lastTickTime, _lastTickTime - _prevTickTime);
+            }
         }
 
-        public static void SetupTestScene(Transform platforms, SceneConverter converter, params RectInt[] coreRect)
+        private void UpdateCamera()
         {
-            var markers = platforms.GetComponentsInChildren<TransformMarker>();
-            int len = Math.Min(coreRect.Length, markers.Length);
+            Vector2 center = Vector2.zero;
 
-            for (int i = 0; i < len; i++)
-                markers[i].SetViewRect(converter.ToViewRect(coreRect[i]));
+            foreach (var player in _players)
+                center += (Vector2) player.transform.position;
+
+            //center /= _players.Length;
+
+            _cameraPursuer.Target = _players[0].transform.position;
         }
-
+        
         private static InputMap GatherInput()
         {
             InputMap map = new()
@@ -126,4 +141,6 @@ namespace Game.Scripts.Logic
             return map;
         }
     }
+
+
 }
