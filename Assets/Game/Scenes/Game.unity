@@ -2674,7 +2674,7 @@ GameObject:
   - component: {fileID: 1455694427}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2754,12 +2754,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1455694423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9964cd459f9f4155ae3c6a73ca63cb36, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e317d972f5248ea8701f0f2fef6e3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 1455694426}
-  _offset: {x: 0, y: 0, z: -50}
-  _lerp: 6
+  _root: {fileID: 1455694426}
+  _camera: {fileID: 1455694425}
+  _baseSize: 12
+  _sizeChangePow: 1.5
+  _startResizing: 0.6
+  _lerpSped: 3
+  _targets:
+  - {fileID: 951681947}
+  - {fileID: 336241721}
 --- !u!1 &1489170835
 GameObject:
   m_ObjectHideFlags: 0

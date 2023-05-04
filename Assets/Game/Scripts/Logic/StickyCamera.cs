@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace Game.Scripts.Logic
 {
-    public class CameraPursuer : MonoBehaviour
+
+    public class StickyCamera : MonoBehaviour
     {
         [SerializeField] private Transform _camera;
         [SerializeField] private Vector3 _offset = new Vector3(0, 0, -50f);

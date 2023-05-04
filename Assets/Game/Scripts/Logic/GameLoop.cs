@@ -21,7 +21,6 @@ namespace Game.Scripts.Logic
 
         private InterpolatedGameObjectView[] _players;
         private PlatformView[] _platforms;
-        private CameraPursuer _cameraPursuer;
         private GameConfig _config;
 
         private readonly byte[] _buffer = new byte[2048];
@@ -38,7 +37,6 @@ namespace Game.Scripts.Logic
         {
             _players = _playersRoot.GetComponentsInChildren<InterpolatedGameObjectView>();
             _platforms = _platformsRoot.GetComponentsInChildren<PlatformView>();
-            _cameraPursuer = FindObjectOfType<CameraPursuer>();
             
             _config = Resources.Load<GameConfig>(AssetPath.GameConfig);
             _converter = new SceneConverter(_config);
@@ -76,10 +74,13 @@ namespace Game.Scripts.Logic
                 _prevFrame = _gs.Frame;
             }
 
-            UpdateCamera();
-
             UpdateGUI();
             UpdateInputHelper();
+        }
+
+        private void OnDisable()
+        {
+            _api.StopGame();
         }
 
         private void UpdateInputHelper()
@@ -96,11 +97,6 @@ namespace Game.Scripts.Logic
             _drawFps.text = (1f / Time.deltaTime).ToString("F2");
         }
 
-        private void OnDisable()
-        {
-            _api.StopGame();
-        }
-
         private void UpdatePlayersView(ReadOnlySpan<IPlayer> players)
         {
             int count = Mathf.Min(players.Length, _players.Length);
@@ -110,20 +106,8 @@ namespace Game.Scripts.Logic
                 var obj = players[i].Object;
                 var rect = new RectInt(obj.Position.RoundToInt(), obj.Size.RoundToInt());
                 var viewRect = _converter.ToViewRect(rect);
-                _players[i].SetPosition(viewRect.position, _lastTickTime, _lastTickTime - _prevTickTime);
+                _players[i].SetPosition(viewRect.position, _lastTickTime, _config.TickDelta);
             }
-        }
-
-        private void UpdateCamera()
-        {
-            Vector2 center = Vector2.zero;
-
-            foreach (var player in _players)
-                center += (Vector2) player.transform.position;
-
-            //center /= _players.Length;
-
-            _cameraPursuer.Target = _players[0].transform.position;
         }
         
         private static InputMap GatherInput()
