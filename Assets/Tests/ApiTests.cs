@@ -42,7 +42,7 @@ public class ApiTests
         api.Update(input);
 
         var buffer = new byte[512];
-        int len = api.GetState(buffer);
+        api.GetState(buffer, out int len, out float dx);
         
         IGameState gs = ApiFactory.CreateGameState();
         gs.Update(buffer, len);

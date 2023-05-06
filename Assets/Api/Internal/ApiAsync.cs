@@ -44,13 +44,10 @@ namespace Api.Internal
 
         void IApi.Update(InputMap inputMap) => Update(inputMap);
 
-        int IApi.GetState(byte[] buffer)
+        void IApi.GetState(byte[] buffer, out int length, out float dx)
         {
-            int size;
             fixed (byte* pBuffer = buffer)
-                size = GetState(pBuffer);
-
-            return size;
+                GetState(pBuffer, out length, out dx);
         }
 
         GameStatus IApi.GetStatus() => GetStatus();
@@ -79,7 +76,7 @@ namespace Api.Internal
         private static extern void Update(InputMap input);
 
         [DllImport(DllName, SetLastError = true)]
-        private static extern int GetState(byte* buf);
+        private static extern void GetState(byte* buf, out int length, out float dx);
 
         [DllImport(DllName, SetLastError = true)]
         private static extern GameStatus GetStatus();

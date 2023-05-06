@@ -14,10 +14,11 @@ namespace Game.Scripts.Logic
     {
         [SerializeField] private Text _tickFps;
         [SerializeField] private Text _drawFps;
+        [SerializeField] private PlotView _plotDx;
         
         [SerializeField] private Transform _platformsRoot;
         [SerializeField] private Transform _playersRoot;
-        [SerializeField, Range(0, 1)] private int _activePlayer = 0;
+        [SerializeField, Range(0, 1)] private int _activePlayer;
 
         private InterpolatedGameObjectView[] _players;
         private PlatformView[] _platforms;
@@ -35,6 +36,8 @@ namespace Game.Scripts.Logic
 
         private void Start()
         {
+            _plotDx.SetMinMax(0f, 2f);
+            
             _players = _playersRoot.GetComponentsInChildren<InterpolatedGameObjectView>();
             _platforms = _platformsRoot.GetComponentsInChildren<PlatformView>();
             
@@ -63,18 +66,18 @@ namespace Game.Scripts.Logic
             var input = GatherInput();
             _api.Update(input);
 
-            int len = _api.GetState(_buffer);
+            _api.GetState(_buffer, out int len, out float dx);
             _gs.Update(_buffer, len);
 
             if (_gs.Frame != _prevFrame)
             {
                 _prevTickTime = _lastTickTime;
                 _lastTickTime = Time.realtimeSinceStartup;
-                UpdatePlayersView(_gs.Players);
+                UpdatePlayersView(_gs.Players, dx);
                 _prevFrame = _gs.Frame;
             }
 
-            UpdateGUI();
+            UpdateGUI(dx);
             UpdateInputHelper();
         }
 
@@ -91,13 +94,14 @@ namespace Game.Scripts.Logic
             }
         }
 
-        private void UpdateGUI()
+        private void UpdateGUI(float dx)
         {
-            _tickFps.text = (1f / (_lastTickTime - _prevTickTime)).ToString("F2");
+            _plotDx.Push(dx);
+            _tickFps.text = dx.ToString("F2");
             _drawFps.text = (1f / Time.deltaTime).ToString("F2");
         }
 
-        private void UpdatePlayersView(ReadOnlySpan<IPlayer> players)
+        private void UpdatePlayersView(ReadOnlySpan<IPlayer> players, float dx)
         {
             int count = Mathf.Min(players.Length, _players.Length);
 
@@ -106,7 +110,7 @@ namespace Game.Scripts.Logic
                 var obj = players[i].Object;
                 var rect = new RectInt(obj.Position.RoundToInt(), obj.Size.RoundToInt());
                 var viewRect = _converter.ToViewRect(rect);
-                _players[i].SetPosition(viewRect.position, _lastTickTime, _config.TickDelta);
+                _players[i].SetPosition(viewRect.position, _lastTickTime, dx);
             }
         }
         

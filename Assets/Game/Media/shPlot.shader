@@ -110,6 +110,7 @@ Shader "Game/Plot"
                     y = 1;
 
                 half4 color = _Color * y;
+                color.a = _Color.a;
 
                 #ifdef UNITY_UI_CLIP_RECT
                 color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);

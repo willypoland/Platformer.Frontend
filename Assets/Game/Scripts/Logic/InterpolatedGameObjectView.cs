@@ -8,11 +8,13 @@ namespace Game.Scripts.Logic
     {
         [SerializeField] private GameObjectView _view;
         [SerializeField] private bool _disable;
-        [SerializeField] private bool _enableDebug = false;
-        private bool _setup;
+#if UNITY_EDITOR
+        [SerializeField] private bool _enableDebug;
+#endif
 
+        private bool _setup;
         private float _tickTime;
-        private float _tickDelta;
+        private float _dx;
 
         private Vector2 _prevPos2;
         private Vector2 _prevPos1;
@@ -20,10 +22,10 @@ namespace Game.Scripts.Logic
 
         public GameObjectView GameObjectView => _view;
 
-        public void SetPosition(Vector2 position, float tickTitme, float tickDelta)
+        public void SetPosition(Vector2 position, float tickTitme, float dx)
         {
             _tickTime = tickTitme;
-            _tickDelta = tickDelta;
+            _dx = dx;
 
             _prevPos2 = _prevPos1;
             _prevPos1 = _prevPos0;
@@ -61,8 +63,15 @@ namespace Game.Scripts.Logic
 
         public Vector2 GetInterpolatedPosition(float currentTime)
         {
-            float t = (currentTime - _tickTime) / _tickDelta;
-            return Vector2.Lerp(_prevPos2, _prevPos1, t);
+            //float t = (currentTime - _tickTime) / _dx;
+            if (_dx <= 1f)
+            {
+                return Vector2.Lerp(_prevPos2, _prevPos1, _dx);
+            }
+            else
+            {
+                return Vector2.Lerp(_prevPos1, _prevPos0, _dx - 1f);
+            }
         }
 
 #if UNITY_EDITOR

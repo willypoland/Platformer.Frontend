@@ -1,7 +1,4 @@
-﻿using System.Net;
-
-
-namespace Api
+﻿namespace Api
 {
     public interface IApi // TODO Should rename
     {
@@ -19,7 +16,7 @@ namespace Api
 
         void Update(InputMap inputMap);
 
-        int GetState(byte[] buffer);
+        void GetState(byte[] buffer, out int length, out float dx);
 
         GameStatus GetStatus();
 

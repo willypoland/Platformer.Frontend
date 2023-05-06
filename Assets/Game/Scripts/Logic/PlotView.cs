@@ -1,83 +1,59 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 
-public class PlotView : Graphic
+namespace Game.Scripts.Logic
 {
-    private static readonly int PlotTex = Shader.PropertyToID("_PlotTex");
-    private static readonly int Min = Shader.PropertyToID("_Min");
-    private static readonly int Max = Shader.PropertyToID("_Max");
-
-    [SerializeField] private int _initWidth = 200;
-    [SerializeField] private float _minMaxLerpSpeed = 1f; 
-    private Texture2D _texture;
-
-    private float _min;
-    private float _max;
-    private float[] _buffer;
-
-    private float _currentMin;
-    private float _currentMax;
-
-    protected override void Awake()
+    public class PlotView : Graphic
     {
-        base.Awake();
-        SetWidth(_initWidth);
-    }
+        private static readonly int PlotTex = Shader.PropertyToID("_PlotTex");
+        private static readonly int Min = Shader.PropertyToID("_Min");
+        private static readonly int Max = Shader.PropertyToID("_Max");
 
-    public void SetWidth(int width)
-    {
-        _min = float.PositiveInfinity;
-        _max = float.NegativeInfinity;
-        
-        if (Application.isEditor)
-            DestroyImmediate(_texture);
-        else
-            Destroy(_texture);
+        private readonly FloatQueue _queue = new();
+        private Texture2D _texture;
 
+        public FloatQueue Queue => _queue;
 
-        _buffer = new float[width];
-        _texture = new Texture2D(width, 1, TextureFormat.RFloat, 0, false);
-        _texture.name = "PlotTexture";
-        _texture.filterMode = FilterMode.Point;
-        _texture.SetPixelData(_buffer, 0);
-        _texture.Apply(false);
-
-        material.SetTexture(PlotTex, _texture);
-        (transform as RectTransform).SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-    }
-
-    public void Push(float value)
-    {
-        _min = _max = value;
-        
-        for (int i = 1; i < _buffer.Length; i++)
+        protected override void OnRectTransformDimensionsChange()
         {
-            float v = _buffer[i];
-            _min = Mathf.Min(v, _min);
-            _max = Mathf.Max(v, _max);
-            
-            _buffer[i - 1] = v;
+            base.OnRectTransformDimensionsChange();
+            Resize(Mathf.RoundToInt(rectTransform.sizeDelta.x));
+        }
+        
+        private void Resize(int size)
+        {
+            _queue.Resize(size);
+            _texture = new Texture2D(size, 1, TextureFormat.RFloat, 0, false);
+            _texture.name = "PlotTexture." + name;
+            _texture.filterMode = FilterMode.Point;
+            _texture.SetPixelData(_queue.Buffer, 0);
+            _texture.Apply(false);
+
+            material.SetTexture(PlotTex, _texture);
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size);
         }
 
-        _buffer[^1] = value;
+        public void Push(float value, bool updateMinMax = false)
+        {
+            _queue?.Push(value);
 
-        _texture.SetPixelData(_buffer, 0);
-        _texture.Apply(false);
-    }
+            if (_texture)
+            {
+                _texture.SetPixelData(_queue.Buffer, 0);
+                _texture.Apply(false);
+            }
 
-    private void Update()
-    {
-        Push(Time.deltaTime);
+            if (updateMinMax)
+                SetMinMax(_queue.Min, _queue.Max);
+        }
 
-        _currentMax = Mathf.Max(_currentMax, _max);
-        _currentMin = Mathf.Min(_currentMin, _min);
-
-        float speed = Time.deltaTime * _minMaxLerpSpeed;
-        _currentMin = Mathf.Lerp(_currentMin, _min, speed);
-        _currentMax = Mathf.Lerp(_currentMax, _max, speed);
         
-        material.SetFloat(Min, _currentMin);
-        material.SetFloat(Max, _currentMax);
+        public void SetMinMax(float min, float max)
+        {
+            min = Mathf.Min(min, max);
+            material.SetFloat(Min, min);
+            material.SetFloat(Max, max);
+        }
     }
 }
