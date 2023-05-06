@@ -1,4 +1,6 @@
 ﻿using System;
+using Game.Scripts.Data;
+using Game.Scripts.Infrastructure;
 using UnityEngine;
 
 
@@ -19,6 +21,7 @@ namespace Game.Scripts.Logic
         private Vector2 _prevPos2;
         private Vector2 _prevPos1;
         private Vector2 _prevPos0;
+        private GameConfig _config;
 
         public GameObjectView GameObjectView => _view;
 
@@ -37,6 +40,7 @@ namespace Game.Scripts.Logic
         private void Start()
         {
             _prevPos2 = _prevPos1 = _prevPos0 = _view.Position;
+            _config = Resources.Load<GameConfig>(AssetPath.GameConfig);
         }
 
         private void LateUpdate()
@@ -63,15 +67,14 @@ namespace Game.Scripts.Logic
 
         public Vector2 GetInterpolatedPosition(float currentTime)
         {
-            //float t = (currentTime - _tickTime) / _dx;
-            if (_dx <= 1f)
-            {
-                return Vector2.Lerp(_prevPos2, _prevPos1, _dx);
-            }
-            else
-            {
+            // float t = (currentTime - _tickTime) / _config.TickDelta;
+            
+            // return Vector2.LerpUnclamped(_prevPos1, _prevPos0, _dx);
+
+            if (_dx >= 1f)
                 return Vector2.Lerp(_prevPos1, _prevPos0, _dx - 1f);
-            }
+
+            return Vector2.Lerp(_prevPos2, _prevPos1, _dx);
         }
 
 #if UNITY_EDITOR

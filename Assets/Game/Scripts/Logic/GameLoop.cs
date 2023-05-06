@@ -32,6 +32,11 @@ namespace Game.Scripts.Logic
         private float _prevTickTime;
         private float _lastTickTime;
 
+        private float _dx2;
+        private float _dx1;
+        private float _dx0;
+        private float _dx;
+
         private int _prevFrame;
 
         private void Start()
@@ -71,13 +76,20 @@ namespace Game.Scripts.Logic
 
             if (_gs.Frame != _prevFrame)
             {
+                _dx2 = _dx1;
+                _dx1 = _dx0;
+                _dx0 = dx;
+                _dx = CalcDx();
+                
                 _prevTickTime = _lastTickTime;
                 _lastTickTime = Time.realtimeSinceStartup;
-                UpdatePlayersView(_gs.Players, dx);
+                UpdatePlayersView(_gs.Players, _dx);
+
+
                 _prevFrame = _gs.Frame;
             }
 
-            UpdateGUI(dx);
+            UpdateGUI();
             UpdateInputHelper();
         }
 
@@ -94,10 +106,10 @@ namespace Game.Scripts.Logic
             }
         }
 
-        private void UpdateGUI(float dx)
+        private void UpdateGUI()
         {
-            _plotDx.Push(dx);
-            _tickFps.text = dx.ToString("F2");
+            _plotDx.Push(_dx);
+            _tickFps.text = _dx.ToString("F2");
             _drawFps.text = (1f / Time.deltaTime).ToString("F2");
         }
 
@@ -113,7 +125,7 @@ namespace Game.Scripts.Logic
                 _players[i].SetPosition(viewRect.position, _lastTickTime, dx);
             }
         }
-        
+
         private static InputMap GatherInput()
         {
             InputMap map = new()
@@ -127,6 +139,15 @@ namespace Game.Scripts.Logic
             };
 
             return map;
+        }
+
+        private float _currentDx;
+        private float CalcDx()
+        {
+            // float d = 0.5f;
+            // return Mathf.Lerp(Mathf.Lerp(_dx2, _dx1, d), Mathf.Lerp(_dx1, _dx0, d), d);
+            // _currentDx = Mathf.Lerp(_currentDx, _dx0, Time.deltaTime * 2f);
+            return _dx0;
         }
     }
 

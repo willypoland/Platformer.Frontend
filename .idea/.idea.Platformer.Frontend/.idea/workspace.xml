@@ -2,27 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ce39b81-f64e-42ae-99f4-c76ce82ba492" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/FloatQueue.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/FloatQueue.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/FpsPlot.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/FpsPlot.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Platformer.Frontend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Platformer.Frontend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Api/IApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/IApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/ApiAsync.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/Internal/ApiAsync.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/ApiGGPO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/Internal/ApiGGPO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/ApiSync.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/Internal/ApiSync.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Media/mPlot.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Media/mPlot.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Media/shPlot.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Media/shPlot.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scenes/Game.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/GameLoop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/GameLoop.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/InterpolatedGameObjectView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/InterpolatedGameObjectView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlotVIew.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlotVIew.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlotView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlotView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/ApiTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/ApiTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend_async.dll" beforeDir="false" afterPath="$PROJECT_DIR$/frontend_async.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend_ggpo.dll" beforeDir="false" afterPath="$PROJECT_DIR$/frontend_ggpo.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend_sync.dll" beforeDir="false" afterPath="$PROJECT_DIR$/frontend_sync.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +109,7 @@
       <workItem from="1683216942566" duration="9386000" />
       <workItem from="1683267656531" duration="7963000" />
       <workItem from="1683304568079" duration="7669000" />
-      <workItem from="1683357515521" duration="4909000" />
+      <workItem from="1683357515521" duration="8721000" />
     </task>
     <servers />
   </component>
