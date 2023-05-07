@@ -1,18 +1,14 @@
-using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
 
 
 
-namespace Game.Scripts.Logic
+namespace Game.Scripts.Plot
 {
     public class FpsPlot : MonoBehaviour
     {
         [SerializeField] private PlotView _view;
         [SerializeField] private float _minMaxLerpSpeed = 1f;
         [SerializeField] private float _minMaxOffsetMul = 0.1f;
-        private Texture2D _texture;
 
         private float _currentMin;
         private float _currentMax;

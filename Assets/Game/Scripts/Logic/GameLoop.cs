@@ -4,6 +4,7 @@ using Api;
 using Game.Scripts.Common;
 using Game.Scripts.Data;
 using Game.Scripts.Infrastructure;
+using Game.Scripts.Plot;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -141,7 +142,6 @@ namespace Game.Scripts.Logic
             return map;
         }
 
-        private float _currentDx;
         private float CalcDx()
         {
             // float d = 0.5f;

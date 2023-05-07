@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace Game.Scripts.Logic
+namespace Game.Scripts.Plot
 {
     public class FloatQueue
     {
@@ -10,7 +10,7 @@ namespace Game.Scripts.Logic
         private float _max;
         private float _avg;
         private float _sum;
-        private float[] _buffer;
+        private float[] _buffer = Array.Empty<float>();
 
         public int Size => _buffer.Length;
         public float Min => _min;
@@ -22,7 +22,7 @@ namespace Game.Scripts.Logic
         public void Resize(int size)
         {
             _min = _max = _avg = _sum = 0;
-            Array.Resize(ref _buffer, size);
+            Array.Resize(ref _buffer, Mathf.Max(0, size));
         }
 
         public void Push(float value)
