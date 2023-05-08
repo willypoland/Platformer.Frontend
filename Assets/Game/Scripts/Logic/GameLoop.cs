@@ -21,7 +21,7 @@ namespace Game.Scripts.Logic
         [SerializeField] private Transform _playersRoot;
         [SerializeField, Range(0, 1)] private int _activePlayer;
 
-        private InterpolatedGameObjectView[] _players;
+        private PlayerView[] _playerViews;
         private PlatformView[] _platforms;
         private GameConfig _config;
 
@@ -44,7 +44,7 @@ namespace Game.Scripts.Logic
         {
             _plotDx.SetMinMax(0f, 2f);
             
-            _players = _playersRoot.GetComponentsInChildren<InterpolatedGameObjectView>();
+            _playerViews = _playersRoot.GetComponentsInChildren<PlayerView>();
             _platforms = _platformsRoot.GetComponentsInChildren<PlatformView>();
             
             _config = Resources.Load<GameConfig>(AssetPath.GameConfig);
@@ -53,12 +53,13 @@ namespace Game.Scripts.Logic
             Location location = new()
             {
                 IsFirstPlayer = _activePlayer == 0,
-                PositionFirstPlayer = _converter.ToCoreRect(_players[0].GameObjectView.ToViewRect()).position,
-                PositionSecondPlayer = _converter.ToCoreRect(_players[1].GameObjectView.ToViewRect()).position,
+                PositionFirstPlayer = _converter.ToCoreRect(_playerViews[0].GameObjectView.ToViewRect()).position,
+                PositionSecondPlayer = _converter.ToCoreRect(_playerViews[1].GameObjectView.ToViewRect()).position,
                 Platfroms = _platforms.Select((x, i) => _converter.ToCorePlatform(i, x.Type, x.Rect)).ToArray(),
             };
 
-            _api = ApiFactory.CreateApiAsync();
+            // _api = ApiFactory.CreateApiAsync();
+            _api = ApiFactory.CreateApiSync();
             _gs = ApiFactory.CreateGameState();
             _api.Init(location);
             _api.StartGame();
@@ -116,14 +117,24 @@ namespace Game.Scripts.Logic
 
         private void UpdatePlayersView(ReadOnlySpan<IPlayer> players, float dx)
         {
-            int count = Mathf.Min(players.Length, _players.Length);
+            int count = Mathf.Min(players.Length, _playerViews.Length);
 
             for (int i = 0; i < count; i++)
             {
-                var obj = players[i].Object;
+                var player = players[i];
+                var view = _playerViews[i];
+                
+                var obj = player.Object;
                 var rect = new RectInt(obj.Position.RoundToInt(), obj.Size.RoundToInt());
                 var viewRect = _converter.ToViewRect(rect);
-                _players[i].SetPosition(viewRect.position, _lastTickTime, dx);
+                view.InterpolatedGameObjectView.SetPosition(viewRect.position, _lastTickTime, dx);
+                view.GameObjectView.SetViewRect(viewRect);
+                view.Animator.UpdateState(player);
+
+                if (_activePlayer == i)
+                {
+                    Debug.Log($"{player.State} {player.StateFrame}");
+                }
             }
         }
 

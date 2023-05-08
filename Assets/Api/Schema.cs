@@ -28,23 +28,28 @@ namespace Ser {
             "eRgCIAEoBSKHAQoKR2FtZU9iamVjdBIaCgRtZXNoGAEgAygLMgwuc2VyLlZl",
             "Y3RvcjISDQoFd2lkdGgYAiABKAUSDgoGaGVpZ2h0GAMgASgFEh4KCHBvc2l0",
             "aW9uGAQgASgLMgwuc2VyLlZlY3RvcjISHgoIdmVsb2NpdHkYBSABKAsyDC5z",
-            "ZXIuVmVjdG9yMiLaAQoGUGxheWVyEhwKA29iahgBIAEoCzIPLnNlci5HYW1l",
+            "ZXIuVmVjdG9yMiKCAgoGUGxheWVyEhwKA29iahgBIAEoCzIPLnNlci5HYW1l",
             "T2JqZWN0Eh8KBXN0YXRlGAIgASgOMhAuc2VyLlBsYXllclN0YXRlEhMKC3N0",
             "YXRlX2ZyYW1lGAMgASgFEhIKCnByZXZfaW5wdXQYBCABKAUSEQoJb25fZ3Jv",
             "dW5kGAUgASgIEhEKCW9uX2RhbWFnZRgGIAEoCBIWCg5sZWZ0X2RpcmVjdGlv",
             "bhgHIAEoCBIWCg5jdXJyZW50X2hlYWx0aBgIIAEoBRISCgptYXhfaGVhbHRo",
-            "GAkgASgFIoQBCglHYW1lU3RhdGUSDQoFZnJhbWUYASABKAUSHAoHcGxheWVy",
-            "cxgCIAMoCzILLnNlci5QbGF5ZXISIgoJcGxhdGZvcm1zGAMgAygLMg8uc2Vy",
-            "LkdhbWVPYmplY3QSJgoNbWVsZWVfYXR0YWNrcxgEIAMoCzIPLnNlci5HYW1l",
-            "T2JqZWN0KmUKC1BsYXllclN0YXRlEggKBElETEUQABIHCgNSVU4QARIICgRK",
-            "VU1QEAISCwoHRkFMTElORxADEgsKB0xBTkRJTkcQBBIUChBBVFRBQ0tfT05f",
-            "R1JPVU5EEAUSCQoFREVBVEgQBmIGcHJvdG8z"));
+            "GAkgASgFEiYKDGF0dGFja19waGFzZRgKIAEoDjIQLnNlci5BdHRhY2tQaGFz",
+            "ZSKEAQoJR2FtZVN0YXRlEg0KBWZyYW1lGAEgASgFEhwKB3BsYXllcnMYAiAD",
+            "KAsyCy5zZXIuUGxheWVyEiIKCXBsYXRmb3JtcxgDIAMoCzIPLnNlci5HYW1l",
+            "T2JqZWN0EiYKDW1lbGVlX2F0dGFja3MYBCADKAsyDy5zZXIuR2FtZU9iamVj",
+            "dCrfAQoLUGxheWVyU3RhdGUSCAoESURMRRAAEgcKA1JVThABEggKBEpVTVAQ",
+            "AhILCgdGQUxMSU5HEAMSCwoHTEFORElORxAEEgkKBVNRVUFUEAUSEwoPT1ZF",
+            "UkhFQURfQVRUQUNLEAYSDgoKTUlEX0FUVEFDSxAHEg4KCkxPV19BVFRBQ0sQ",
+            "CBIJCgVCTE9DSxAJEg8KC1NRVUFUX0JMT0NLEAoSDAoISElUX1NUVU4QCxIO",
+            "CgpCTE9DS19TVFVOEAwSFAoQU1FVQVRfQkxPQ0tfU1RVThANEgkKBURFQVRI",
+            "EA4qPgoLQXR0YWNrUGhhc2USCwoHU1RBUlRVUBAAEgoKBkFDVElWRRABEgwK",
+            "CFJFQ09WRVJZEAISCAoETk9ORRADYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Ser.PlayerState), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Ser.PlayerState), typeof(global::Ser.AttackPhase), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Ser.Vector2), global::Ser.Vector2.Parser, new[]{ "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ser.GameObject), global::Ser.GameObject.Parser, new[]{ "Mesh", "Width", "Height", "Position", "Velocity" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ser.Player), global::Ser.Player.Parser, new[]{ "Obj", "State", "StateFrame", "PrevInput", "OnGround", "OnDamage", "LeftDirection", "CurrentHealth", "MaxHealth" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ser.Player), global::Ser.Player.Parser, new[]{ "Obj", "State", "StateFrame", "PrevInput", "OnGround", "OnDamage", "LeftDirection", "CurrentHealth", "MaxHealth", "AttackPhase" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ser.GameState), global::Ser.GameState.Parser, new[]{ "Frame", "Players", "Platforms", "MeleeAttacks" }, null, null, null, null)
           }));
     }
@@ -58,8 +63,23 @@ namespace Ser {
     [pbr::OriginalName("JUMP")] Jump = 2,
     [pbr::OriginalName("FALLING")] Falling = 3,
     [pbr::OriginalName("LANDING")] Landing = 4,
-    [pbr::OriginalName("ATTACK_ON_GROUND")] AttackOnGround = 5,
-    [pbr::OriginalName("DEATH")] Death = 6,
+    [pbr::OriginalName("SQUAT")] Squat = 5,
+    [pbr::OriginalName("OVERHEAD_ATTACK")] OverheadAttack = 6,
+    [pbr::OriginalName("MID_ATTACK")] MidAttack = 7,
+    [pbr::OriginalName("LOW_ATTACK")] LowAttack = 8,
+    [pbr::OriginalName("BLOCK")] Block = 9,
+    [pbr::OriginalName("SQUAT_BLOCK")] SquatBlock = 10,
+    [pbr::OriginalName("HIT_STUN")] HitStun = 11,
+    [pbr::OriginalName("BLOCK_STUN")] BlockStun = 12,
+    [pbr::OriginalName("SQUAT_BLOCK_STUN")] SquatBlockStun = 13,
+    [pbr::OriginalName("DEATH")] Death = 14,
+  }
+
+  public enum AttackPhase {
+    [pbr::OriginalName("STARTUP")] Startup = 0,
+    [pbr::OriginalName("ACTIVE")] Active = 1,
+    [pbr::OriginalName("RECOVERY")] Recovery = 2,
+    [pbr::OriginalName("NONE")] None = 3,
   }
 
   #endregion
@@ -634,6 +654,7 @@ namespace Ser {
       leftDirection_ = other.leftDirection_;
       currentHealth_ = other.currentHealth_;
       maxHealth_ = other.maxHealth_;
+      attackPhase_ = other.attackPhase_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -741,6 +762,17 @@ namespace Ser {
       }
     }
 
+    /// <summary>Field number for the "attack_phase" field.</summary>
+    public const int AttackPhaseFieldNumber = 10;
+    private global::Ser.AttackPhase attackPhase_ = global::Ser.AttackPhase.Startup;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Ser.AttackPhase AttackPhase {
+      get { return attackPhase_; }
+      set {
+        attackPhase_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Player);
@@ -763,6 +795,7 @@ namespace Ser {
       if (LeftDirection != other.LeftDirection) return false;
       if (CurrentHealth != other.CurrentHealth) return false;
       if (MaxHealth != other.MaxHealth) return false;
+      if (AttackPhase != other.AttackPhase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -778,6 +811,7 @@ namespace Ser {
       if (LeftDirection != false) hash ^= LeftDirection.GetHashCode();
       if (CurrentHealth != 0) hash ^= CurrentHealth.GetHashCode();
       if (MaxHealth != 0) hash ^= MaxHealth.GetHashCode();
+      if (AttackPhase != global::Ser.AttackPhase.Startup) hash ^= AttackPhase.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -830,6 +864,10 @@ namespace Ser {
         output.WriteRawTag(72);
         output.WriteInt32(MaxHealth);
       }
+      if (AttackPhase != global::Ser.AttackPhase.Startup) {
+        output.WriteRawTag(80);
+        output.WriteEnum((int) AttackPhase);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -875,6 +913,10 @@ namespace Ser {
         output.WriteRawTag(72);
         output.WriteInt32(MaxHealth);
       }
+      if (AttackPhase != global::Ser.AttackPhase.Startup) {
+        output.WriteRawTag(80);
+        output.WriteEnum((int) AttackPhase);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -910,6 +952,9 @@ namespace Ser {
       }
       if (MaxHealth != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxHealth);
+      }
+      if (AttackPhase != global::Ser.AttackPhase.Startup) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) AttackPhase);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -951,6 +996,9 @@ namespace Ser {
       }
       if (other.MaxHealth != 0) {
         MaxHealth = other.MaxHealth;
+      }
+      if (other.AttackPhase != global::Ser.AttackPhase.Startup) {
+        AttackPhase = other.AttackPhase;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1005,6 +1053,10 @@ namespace Ser {
             MaxHealth = input.ReadInt32();
             break;
           }
+          case 80: {
+            AttackPhase = (global::Ser.AttackPhase) input.ReadEnum();
+            break;
+          }
         }
       }
     #endif
@@ -1056,6 +1108,10 @@ namespace Ser {
           }
           case 72: {
             MaxHealth = input.ReadInt32();
+            break;
+          }
+          case 80: {
+            AttackPhase = (global::Ser.AttackPhase) input.ReadEnum();
             break;
           }
         }
