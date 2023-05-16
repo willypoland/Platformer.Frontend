@@ -4,11 +4,11 @@
     {
         string DllName { get; }
 
-        void Init(Location location);
+        void Init(GameContext context);
+
+        void SetLocation(Location location);
 
         Endpoint GetPublicEndpoint(int localPort);
-
-        void RegisterPeer(Endpoint peerEndpoint);
 
         void StartGame();
 
@@ -16,12 +16,12 @@
 
         void Update(InputMap inputMap);
 
-        void GetState(byte[] buffer, out int length, out float dx);
+        void GetState(byte[] buffer, out int length);
+
+        long GetMicrosecondsInOneTick();
 
         GameStatus GetStatus();
 
         PlatformerErrorCode GetErrorCode();
     }
-
-
 }

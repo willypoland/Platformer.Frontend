@@ -13,9 +13,9 @@ namespace Game.Scripts.Logic
 
         public void UpdateState(IPlayer player)
         {
-            int index = (int) player.State;
-            var sprite = _controller.GetSprite(index, player.StateFrame);
-            _renderer.sprite = sprite;
+            // int index = (int) player.State;
+            // var sprite = _controller.GetSprite(index, player.StateFrame);
+            // _renderer.sprite = sprite;
         }
     }
 }

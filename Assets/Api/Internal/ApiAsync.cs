@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Runtime.InteropServices;
 
 
@@ -10,32 +11,16 @@ namespace Api.Internal
 
         string IApi.DllName => DllName;
 
-        void IApi.Init(Location location)
-        {
-            LocationUnsafe raw; // TODO How name this variable?
-            raw.Is1stPlayer = location.IsFirstPlayer; 
-            raw.Position1stPlayer = location.PositionFirstPlayer;
-            raw.Position2ndPlaer = location.PositionSecondPlayer;
-            raw.PlatformsCount = (ulong) location.Platfroms.Length;
+        void IApi.Init(GameContext context) => Init(context);
 
-            fixed (Platform* platfroms = location.Platfroms)
-            {
-                raw.Platforms = platfroms;
-                Init(raw);
-            }
-        }
+        void IApi.SetLocation(Location location) => SetLocation(location);
 
-        Endpoint IApi.GetPublicEndpoint(int localPort)
-        {
-            //EndpointUnsafe raw = GetPublicEndpoint(localPort);
-            Endpoint endpoint;
-            endpoint.RemoteHost = IPAddress.Loopback;
-            endpoint.RemotePort = localPort;
-            return endpoint;
-        }
+        Endpoint IApi.GetPublicEndpoint(int localPort) => new(IPAddress.Loopback, localPort);
 
-        void IApi.RegisterPeer(Endpoint peerEndpoint)
+        void IApi.GetState(byte[] buffer, out int length)
         {
+            fixed (byte* p = buffer)
+                GetState(p, out length);
         }
 
         void IApi.StartGame() => StartGame();
@@ -44,27 +29,23 @@ namespace Api.Internal
 
         void IApi.Update(InputMap inputMap) => Update(inputMap);
 
-        void IApi.GetState(byte[] buffer, out int length, out float dx)
-        {
-            fixed (byte* pBuffer = buffer)
-                GetState(pBuffer, out length, out dx);
-        }
+        long IApi.GetMicrosecondsInOneTick() => getMicrosecondsInOneTick();
 
         GameStatus IApi.GetStatus() => GetStatus();
 
         PlatformerErrorCode IApi.GetErrorCode() => GetErrorCode();
 
 
-        #region Extern import
+        #region Extern
 
         [DllImport(DllName, SetLastError = true)]
-        private static extern void Init(LocationUnsafe location);
+        private static extern void Init(GameContext context);
+        
+        [DllImport(DllName, SetLastError = true)]
+        private static extern void SetLocation(Location location);
 
         // [DllImport(DllName, SetLastError = true)]
         // private static extern EndpointUnsafe GetPublicEndpoint(int local_port);
-
-        // [DllImport(DllName, SetLastError = true)]
-        // private static extern void RegisterPeer(EndpointUnsafe peer_endpoint);
 
         [DllImport(DllName, SetLastError = true)]
         private static extern void StartGame();
@@ -76,7 +57,10 @@ namespace Api.Internal
         private static extern void Update(InputMap input);
 
         [DllImport(DllName, SetLastError = true)]
-        private static extern void GetState(byte* buf, out int length, out float dx);
+        private static extern void GetState(byte* buf, out int length);
+        
+        [DllImport(DllName, SetLastError = true)]
+        private static extern long getMicrosecondsInOneTick();
 
         [DllImport(DllName, SetLastError = true)]
         private static extern GameStatus GetStatus();

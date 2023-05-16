@@ -4,6 +4,7 @@
     {
         IGameObject Object { get; }
         PlayerState State { get; }
+        AttackPhase AttackPhase { get; }
         int StateFrame { get; }
         bool OnGround { get; }
         bool OnDamage { get; }

@@ -57,7 +57,8 @@ namespace Api
             public void Update(Ser.Player player)
             {
                 _object.Update(player.Obj);
-                State = (Api.PlayerState) (int) player.State;
+                State = (Api.PlayerState) player.State;
+                AttackPhase = (Api.AttackPhase) player.AttackPhase;
                 StateFrame = player.StateFrame;
                 OnGround = player.OnGround;
                 OnDamage = player.OnDamage;
@@ -79,6 +80,7 @@ namespace Api
 
             public IGameObject Object => _object;
             public PlayerState State { get; private set; }
+            public AttackPhase AttackPhase { get; private set; }
             public int StateFrame { get; private set; }
             public bool OnGround { get; private set; }
             public bool OnDamage { get; private set; }

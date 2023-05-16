@@ -2,57 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ce39b81-f64e-42ae-99f4-c76ce82ba492" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Attack.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Attack.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Death.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Death.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Falling.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Falling.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Fixed Animation Controller.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Fixed Animation Controller.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Hurt.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Hurt.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Idle.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Idle.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Jump.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Jump.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Run.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Media/Animations/Run.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/PlayerView.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/PlayerView.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlayerAnimator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlayerAnimator.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlayerView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlayerView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Api/AttackPhase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Api/AttackPhase.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Api/GameContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Api/GameContext.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Platformer.Frontend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Platformer.Frontend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Api/PlayerState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/PlayerState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Api/Schema.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/Schema.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Api/schema.proto" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/schema.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Attack.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Attack.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Death.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Death.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Falling.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Falling.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Fixed Animation Controller.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Fixed Animation Controller.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Hurt.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Hurt.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Idle.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Idle.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Jump.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Jump.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Run.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Animations/Run.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/ApiFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/ApiFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/Endpoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/Endpoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/GameStateBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/GameStateBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/IApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/IApi.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/IPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/IPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/ApiAsync.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/Internal/ApiAsync.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/ApiGGPO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/Internal/ApiGGPO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/ApiSync.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/Internal/ApiSync.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/EndpointUnsafe.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/EndpointUnsafe.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/LocationUnsafe.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/Internal/LocationUnsafe.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Api/Location.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Api/Location.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/GameLoop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/GameLoop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/UI/Scripts/DebugInfoViewController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/UI/Scripts/DebugInfoViewController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/UI/Scripts/PlayerStateView.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/UI/Scripts/PlayerStateView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/InterpolatedGameObjectView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/InterpolatedGameObjectView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlayerAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Logic/PlayerAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/ApiTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/ApiTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend_async.dll" beforeDir="false" afterPath="$PROJECT_DIR$/frontend_async.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend_ggpo.dll" beforeDir="false" afterPath="$PROJECT_DIR$/frontend_ggpo.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend_sync.dll" beforeDir="false" afterPath="$PROJECT_DIR$/frontend_sync.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,10 +106,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="18048">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="18048" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -160,7 +135,9 @@
       <workItem from="1683357515521" duration="9584000" />
       <workItem from="1683472902446" duration="6824000" />
       <workItem from="1683564727615" duration="300000" />
-      <workItem from="1683570188559" duration="1878000" />
+      <workItem from="1683570188559" duration="2185000" />
+      <workItem from="1684088125909" duration="623000" />
+      <workItem from="1684236802758" duration="5457000" />
     </task>
     <servers />
   </component>

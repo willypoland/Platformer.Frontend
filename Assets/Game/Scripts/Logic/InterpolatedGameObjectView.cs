@@ -69,12 +69,7 @@ namespace Game.Scripts.Logic
         {
             // float t = (currentTime - _tickTime) / _config.TickDelta;
             
-            // return Vector2.LerpUnclamped(_prevPos1, _prevPos0, _dx);
-
-            if (_dx >= 1f)
-                return Vector2.Lerp(_prevPos1, _prevPos0, _dx - 1f);
-
-            return Vector2.Lerp(_prevPos2, _prevPos1, _dx);
+            return Vector2.LerpUnclamped(_prevPos2, _prevPos1, _dx);
         }
 
 #if UNITY_EDITOR

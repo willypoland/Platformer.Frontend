@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net;
 using Api;
 using Game.Scripts.Common;
 using Game.Scripts.Data;
@@ -33,7 +34,6 @@ namespace Game.Scripts.Logic
         private float _prevTickTime;
         private float _lastTickTime;
 
-        private float _dx2;
         private float _dx1;
         private float _dx0;
         private float _dx;
@@ -50,18 +50,18 @@ namespace Game.Scripts.Logic
             _config = Resources.Load<GameConfig>(AssetPath.GameConfig);
             _converter = new SceneConverter(_config);
 
-            Location location = new()
-            {
-                IsFirstPlayer = _activePlayer == 0,
-                PositionFirstPlayer = _converter.ToCoreRect(_playerViews[0].GameObjectView.ToViewRect()).position,
-                PositionSecondPlayer = _converter.ToCoreRect(_playerViews[1].GameObjectView.ToViewRect()).position,
-                Platfroms = _platforms.Select((x, i) => _converter.ToCorePlatform(i, x.Type, x.Rect)).ToArray(),
-            };
+            var location = new Location(
+                _activePlayer == 0,
+                _converter.ToCoreRect(_playerViews[0].GameObjectView.ToViewRect()).position,
+                _converter.ToCoreRect(_playerViews[1].GameObjectView.ToViewRect()).position,
+                _platforms.Select((x, i) => _converter.ToCorePlatform(i, x.Type, x.Rect)).ToArray());
 
-            // _api = ApiFactory.CreateApiAsync();
-            _api = ApiFactory.CreateApiSync();
+            var context = new GameContext(60, new Endpoint(IPAddress.Loopback, 7000));
+
+            _api = ApiFactory.CreateApiAsync();
             _gs = ApiFactory.CreateGameState();
-            _api.Init(location);
+            _api.Init(context);
+            _api.SetLocation(location);
             _api.StartGame();
         }
 
@@ -73,15 +73,14 @@ namespace Game.Scripts.Logic
             var input = GatherInput();
             _api.Update(input);
 
-            _api.GetState(_buffer, out int len, out float dx);
+            _api.GetState(_buffer, out int len);
             _gs.Update(_buffer, len);
 
             if (_gs.Frame != _prevFrame)
             {
-                _dx2 = _dx1;
                 _dx1 = _dx0;
-                _dx0 = dx;
-                _dx = CalcDx();
+                _dx0 = _api.GetMicrosecondsInOneTick() / 1_000_000f;
+                _dx = CalcDx(_dx0, _dx1);
                 
                 _prevTickTime = _lastTickTime;
                 _lastTickTime = Time.realtimeSinceStartup;
@@ -108,10 +107,15 @@ namespace Game.Scripts.Logic
             }
         }
 
+        private Vector2 __last = Vector2.zero;
         private void UpdateGUI()
         {
-            _plotDx.Push(_dx);
-            _tickFps.text = _dx.ToString("F2");
+            var curr = _playerViews[0].transform.position;
+            var d = Vector2.Distance(curr, __last);
+            __last = curr;
+            
+            _plotDx.Push(d);
+            _tickFps.text = _dx.ToString("F4");
             _drawFps.text = (1f / Time.deltaTime).ToString("F2");
         }
 
@@ -130,11 +134,6 @@ namespace Game.Scripts.Logic
                 view.InterpolatedGameObjectView.SetPosition(viewRect.position, _lastTickTime, dx);
                 view.GameObjectView.SetViewRect(viewRect);
                 view.Animator.UpdateState(player);
-
-                if (_activePlayer == i)
-                {
-                    Debug.Log($"{player.State} {player.StateFrame}");
-                }
             }
         }
 
@@ -153,12 +152,9 @@ namespace Game.Scripts.Logic
             return map;
         }
 
-        private float CalcDx()
+        private static float CalcDx(float dx0, float dx1)
         {
-            // float d = 0.5f;
-            // return Mathf.Lerp(Mathf.Lerp(_dx2, _dx1, d), Mathf.Lerp(_dx1, _dx0, d), d);
-            // _currentDx = Mathf.Lerp(_currentDx, _dx0, Time.deltaTime * 2f);
-            return _dx0;
+            return dx0;
         }
     }
 
